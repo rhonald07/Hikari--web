@@ -23,7 +23,7 @@ body {
 }
 
 /* Título */
-.formulario h1 {
+.formulario h2 {
     text-align: center;
     padding-bottom: 20px;
     border-bottom: 1px solid silver;
@@ -250,7 +250,7 @@ button[type="submit"]:hover {
     font-size: 32px;
     font-weight: bold;
     text-align: center;
-    color: #333;
+    color: #f3f2f2;
     margin-top: 30px;
     margin-bottom: 10px;
 }
@@ -259,7 +259,7 @@ button[type="submit"]:hover {
     font-size: 20px;
     font-weight: normal;
     text-align: center;
-    color: #555;
+    color: #f3f2f2;
     margin-bottom: 25px;
 }
 
@@ -269,7 +269,7 @@ button[type="submit"]:hover {
     padding: 20px;
 }
 
-/* section */
+/* section crisis */
 .crisis-content {
     background: #ffffff;
     padding: 20px;
@@ -278,3 +278,172 @@ button[type="submit"]:hover {
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
     max-width: 600px;
 }
+
+.crisis-content h5 {
+    font-size: 22px;
+    margin-bottom: 10px;
+    color: #439778;
+}
+
+.crisis-content p {
+    font-size: 16px;
+    color: #555;
+    line-height: 1.4;
+    margin-bottom: 20px;
+}
+
+.btn-crisis {
+    width: 100%;
+    padding: 12px;
+    background: #439778;
+    color: #fff;
+    border: none;
+    border-radius: 25px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: .3s;
+}
+
+.btn-crisis:hover {
+    background: #2e6e54;
+}
+
+/* section habilidades*/
+.habilidades-content {
+    background: #ffffff;
+    padding: 20px;
+    margin: 20px auto;
+    border-radius: 12px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    max-width: 600px;
+}
+
+.habilidades-content h5 {
+    font-size: 22px;
+    margin-bottom: 10px;
+    color: #439778;
+}
+
+.habilidades-content p {
+    font-size: 16px;
+    color: #555;
+    line-height: 1.4;
+    margin-bottom: 20px;
+}
+
+.btn-habilidades {
+    width: 100%;
+    padding: 12px;
+    background: #439778;
+    color: #fff;
+    border: none;
+    border-radius: 25px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: .3s;
+}
+
+.btn-habilidades:hover {
+    background: #2e6e54;
+}
+
+/*Registra nivel de malestar*/
+.nivel-box {
+    width: 100%;
+    background: #2ecc71;
+    padding: 10px;
+    border-radius: 10px;
+    text-align: center;
+    margin-bottom: 20px;
+    transition: .3s;
+}
+
+.nivel-box .nivel-text {
+    font-size: 20px;
+    font-weight: bold;
+    color: #ffffff;
+}
+
+.emoji-line {
+    display: flex;
+    justify-content: space-between;
+    font-size: 22px;
+    padding: 0 5px;
+    margin-bottom: 10px;
+}
+
+.slider {
+    width: 100%;
+    appearance: none;
+    height: 8px;
+    border-radius: 5px;
+    background: #d3d3d3;
+    outline: none;
+    margin-bottom: 5px;
+}
+
+.nivel_malestar {
+    max-width: 600px;
+    margin: 60px auto;
+    padding: 20px;
+    background: #ffffff;
+    border-radius: 12px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.nivel_malestar h1 {
+    text-align: center;
+    color: #333;
+    margin-bottom: 25px;
+}
+
+.nivel-box {
+    width: 96%;
+    background: #2ecc71;
+    padding: 12px;
+    border-radius: 10px;
+    text-align: center;
+    margin-bottom: 15px;
+    transition: .3s;
+}
+
+.nivel-box .nivel-text {
+    font-size: 20px;
+    font-weight: bold;
+    color: #fff;
+}
+
+.emoji-line {
+    display: flex;
+    justify-content: space-between;
+    color: #444;
+    font-size: 24px;
+    padding: 0 5px;
+    margin-bottom: 10px;
+}
+
+.slider {
+    width: 100%;
+    appearance: none;
+    height: 10px;
+    border-radius: 5px;
+    background: #d3d3d3;
+    outline: none;
+    margin-bottom: 30px;
+}
+
+.slider::-webkit-slider-thumb {
+    appearance: none;
+    width: 24px;
+    height: 24px;
+    background: #439778;
+    border-radius: 50%;
+    cursor: pointer;
+    transition: .3s;
+}
+
+.slider::-webkit-slider-thumb:hover {
+    background: #2e6e54;
+}
+
+/* ejercicios DBT */
