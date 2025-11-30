@@ -2,7 +2,7 @@ body {
     margin: 0;
     padding: 0;
     font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
-    background: linear-gradient(150deg, #66CEA8, #ffffff);
+    background: linear-gradient(135deg, #66CEA8, #ffffff);
     height: 100vh;
 }
 
@@ -11,15 +11,16 @@ body {
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    width: 400px;
-    background: rgb(232, 232, 232);
-    border-radius: 10px;
+    max-width: 400px;
+    width: 90%;
+    background: #f8f8f8;
+    border-radius: 20px;
 }
 
 .formulario h1 {
     text-align: center;
-    padding: 0 0 20px 0;
-    border-bottom: 1 px solid silver;
+    padding: 20px;
+    border-bottom: 1px solid silver;
 }
 
 .formulario form{
@@ -30,7 +31,7 @@ body {
 form .username{
     position: relative;
     border-bottom: 2px solid #adadad;
-    margin: 30px;
+    margin: 30px 0;
 }
 
 .username input{
@@ -51,35 +52,30 @@ form .username{
     transform: translateY(-50%);
     font-size: 16px;
     pointer-events: none;
-    transition: .5s;
-}
-
-.username span::before{
-    content: '';
-    position: absolute;
-    top: 40px;
-    left: 0;
-    width: 100%;
-    height: 2px;
-    background: #000000;
-    transition: .5s;
+    transition: .3s ease;
 }
 
 .username input:focus ~ label,
-.username input:focus ~ label{
+.username input:valid ~ label{
     top: -5px;
     color: #000000;
+    font-size: 14px;
 }
 
-.username input:focus ~ span::before,
-.username input:focus ~ span::before{
-    width: 100%;
+.error {
+    color: #d9534f;
+    font-size: 14px;
+    margin-top: -10px;
+    margin-bottom: 15px;
+    display: none;
 }
 
 .recordar {
-    margin: -5px 0 20px 5px;
     color: #66CEA8;
     cursor: pointer;
+    font-size: 14px;
+    display: inline-block;
+    margin-bottom: 15px;
 }
 
 .recordar:hover{
@@ -88,22 +84,21 @@ form .username{
 
 button[type="submit"]{
     width: 100%;
-    height: 50px;
-    border: 1px solid;
+    height: 45px;
+    border: none;
     background: #439778;
     border-radius: 25px;
     font-size: 16px;
     color:#ffffff;
     cursor: pointer;
-    outline: none;
+    outline: .3s;
 }
-button[type="submit"]:hower{
+button[type="submit"]:hover{
     border-color: #275d40;
-    transition: .5s;
 }
 
 .registrarse{
-    margin: 30px 0;
+    margin: 25px;
     text-align: center;
     font-size: 16px;
     color: #000000;
