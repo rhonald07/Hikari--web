@@ -1,0 +1,1396 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>DBT Companion - Terapia Dialéctico Conductual</title>
+    <link rel="stylesheet" href="susi.css" />
+  </head>
+  <body>
+    <!-- Banner offline -->
+    <div id="offline-banner" class="banner-offline hidden">
+      ⚠️ Modo sin conexión - Los datos se sincronizarán cuando vuelvas a estar
+      en línea
+    </div>
+
+    <!-- Banner sincronizando -->
+    <div id="syncing-banner" class="banner-syncing hidden">
+      🔄 Sincronizando...
+    </div>
+
+    <!-- Screen: Welcome -->
+    <div id="screen-welcome" class="container">
+      <div
+        style="
+          display: flex;
+          flex-direction: column;
+          justify-content: center;
+          min-height: 100vh;
+        "
+      >
+        <div class="text-center mb-8">
+          <div style="font-size: 4rem; margin-bottom: 1rem">🌱</div>
+          <h1 style="color: #1e293b; margin-bottom: 0.75rem">DBT Companion</h1>
+          <p style="color: #64748b">
+            Tu espacio seguro para practicar habilidades de Terapia Dialéctico
+            Conductual
+          </p>
+        </div>
+
+        <div class="space-y-4 mb-8">
+          <button
+            class="btn-primary"
+            id="entrar-home"
+            onclick="app.navigateTo('login')"
+          >
+            Entrar
+          </button>
+
+          <button class="btn-crisis" onclick="app.navigateTo('crisis')">
+            🆘 Modo Crisis Inmediato
+          </button>
+
+          <button class="btn-secondary">
+            <div
+              class="flex items-center justify-between"
+              style="justify-content: center"
+            >
+              <span>ℹ️ Información / Ayuda</span>
+            </div>
+          </button>
+        </div>
+
+        <div class="alert alert-warning text-center">
+          ⚠️ Esta web es un prototipo del flujo de la app móvil DBT. No
+          sustituye la atención profesional.
+        </div>
+      </div>
+    </div>
+
+    <!-- Screen: Login -->
+    <div id="screen-login" class="container hidden">
+      <button class="back-btn" onclick="app.navigateTo('welcome')">
+        ← Volver
+      </button>
+
+      <div class="text-center mb-8">
+        <div style="font-size: 3rem; margin-bottom: 1rem">🔐</div>
+        <h1 class="mb-2">Iniciar Sesión</h1>
+        <p style="color: #64748b">Accede a tu espacio personal</p>
+      </div>
+
+      <form onsubmit="app.handleLogin(event)" class="space-y-4 mb-6">
+        <div>
+          <label
+            for="email"
+            style="display: block; color: #475569; margin-bottom: 0.5rem"
+          >
+            Correo electrónico
+          </label>
+          <input id="email" type="email" placeholder="tu@email.com" />
+        </div>
+
+        <div>
+          <label
+            for="password"
+            style="display: block; color: #475569; margin-bottom: 0.5rem"
+          >
+            Contraseña
+          </label>
+          <input id="password" type="password" placeholder="••••••••" />
+        </div>
+
+        <button
+          type="button"
+          style="
+            background: none;
+            border: none;
+            color: #14b8a6;
+            cursor: pointer;
+            padding: 0;
+          "
+        >
+          ¿Olvidaste tu contraseña?
+        </button>
+
+        <button type="submit" class="btn-primary">Entrar</button>
+      </form>
+
+      <div class="divider">
+        <div class="divider-line"></div>
+        <div class="divider-text">o</div>
+      </div>
+
+      <button class="btn-secondary" onclick="app.handleBiometricLogin()">
+        🔒 Autenticar con biometría (simulación)
+      </button>
+    </div>
+
+    <!-- Screen: Home -->
+    <div id="screen-home" class="container container-with-nav hidden">
+      <div class="mb-8 text-center">
+        <h1 style="color: #1e293b; margin-bottom: 0.5rem">Bienvenido/a</h1>
+        <p style="color: #64748b">¿Cómo te sientes hoy?</p>
+      </div>
+
+      <div class="space-y-4">
+        <button
+          class="btn-home-action bg-gradient-rose"
+          onclick="app.navigateTo('crisis')"
+        >
+          <div style="font-size: 2rem; margin-bottom: 0.5rem">🆘</div>
+          <div style="font-size: 1.125rem; margin-bottom: 0.25rem">
+            Modo Crisis
+          </div>
+          <p style="font-size: 0.875rem; opacity: 0.9">Necesito ayuda ahora</p>
+        </button>
+
+        <button
+          class="btn-home-action bg-gradient-teal"
+          onclick="app.navigateTo('skills')"
+        >
+          <div style="font-size: 2rem; margin-bottom: 0.5rem">🧘</div>
+          <div style="font-size: 1.125rem; margin-bottom: 0.25rem">
+            Practicar Habilidades
+          </div>
+          <p style="font-size: 0.875rem; opacity: 0.9">
+            Ejercicios DBT guiados
+          </p>
+        </button>
+
+        <button
+          class="btn-home-action bg-gradient-purple"
+          onclick="app.navigateTo('diary')"
+        >
+          <div style="font-size: 2rem; margin-bottom: 0.5rem">📔</div>
+          <div style="font-size: 1.125rem; margin-bottom: 0.25rem">
+            Diario EMO
+          </div>
+          <p style="font-size: 0.875rem; opacity: 0.9">
+            Registra tus emociones
+          </p>
+        </button>
+
+        <button
+          class="btn-home-action bg-gradient-blue"
+          onclick="app.navigateTo('statistics')"
+        >
+          <div style="font-size: 2rem; margin-bottom: 0.5rem">📊</div>
+          <div style="font-size: 1.125rem; margin-bottom: 0.25rem">
+            Estadísticas
+          </div>
+          <p style="font-size: 0.875rem; opacity: 0.9">
+            Tu progreso y análisis
+          </p>
+        </button>
+      </div>
+    </div>
+
+    <!-- Screen: Crisis Mode -->
+    <div id="screen-crisis" class="container container-with-nav hidden">
+      <div id="crisis-content">
+        <!-- El contenido de crisis se genera dinámicamente -->
+      </div>
+    </div>
+
+    <!-- Screen: Skills Practice -->
+    <div id="screen-skills" class="container container-with-nav hidden">
+      <div id="skills-content">
+        <!-- El contenido de habilidades se genera dinámicamente -->
+      </div>
+    </div>
+
+    <!-- Screen: Emotional Diary -->
+    <div id="screen-diary" class="container container-with-nav hidden">
+      <div id="diary-content">
+        <!-- El contenido del diario se genera dinámicamente -->
+      </div>
+    </div>
+
+    <!-- Screen: Statistics -->
+    <div id="screen-statistics" class="container container-with-nav hidden">
+      <h1 class="mb-4">Estadísticas</h1>
+
+      <div class="filter-pills mb-4">
+        <button class="filter-pill active">Semana</button>
+        <button class="filter-pill">Mes</button>
+        <button class="filter-pill">Año</button>
+      </div>
+
+      <div class="stats-grid">
+        <div class="stat-card bg-gradient-rose">
+          <div class="stat-number">10</div>
+          <div class="text-sm" style="opacity: 0.9">Crisis esta semana</div>
+        </div>
+        <div class="stat-card bg-gradient-teal">
+          <div class="stat-number">6.2</div>
+          <div class="text-sm" style="opacity: 0.9">Intensidad promedio</div>
+        </div>
+        <div class="stat-card bg-gradient-purple">
+          <div class="stat-number">51</div>
+          <div class="text-sm" style="opacity: 0.9">Habilidades usadas</div>
+        </div>
+        <div class="stat-card bg-gradient-blue">
+          <div class="stat-number">28</div>
+          <div class="text-sm" style="opacity: 0.9">Registros EMO</div>
+        </div>
+      </div>
+
+      <div class="card mb-6">
+        <h2 class="mb-4">Frecuencia de Crisis</h2>
+        <div style="text-align: center; padding: 2rem; color: #64748b">
+          📊 Gráfico de línea (datos de la semana)
+        </div>
+      </div>
+
+      <div class="card mb-6">
+        <h2 class="mb-4">Habilidades Más Usadas</h2>
+        <div class="space-y-3">
+          <div>
+            <div class="flex justify-between mb-2">
+              <span class="text-sm">Respiración Pausada</span>
+              <span class="text-sm" style="color: #64748b">15 veces</span>
+            </div>
+            <div
+              style="
+                width: 100%;
+                background: #cbd5e1;
+                border-radius: 9999px;
+                height: 0.75rem;
+                overflow: hidden;
+              "
+            >
+              <div
+                style="
+                  width: 100%;
+                  height: 100%;
+                  background: #14b8a6;
+                  border-radius: 9999px;
+                "
+              ></div>
+            </div>
+          </div>
+          <div>
+            <div class="flex justify-between mb-2">
+              <span class="text-sm">TIP</span>
+              <span class="text-sm" style="color: #64748b">12 veces</span>
+            </div>
+            <div
+              style="
+                width: 100%;
+                background: #cbd5e1;
+                border-radius: 9999px;
+                height: 0.75rem;
+                overflow: hidden;
+              "
+            >
+              <div
+                style="
+                  width: 80%;
+                  height: 100%;
+                  background: #06b6d4;
+                  border-radius: 9999px;
+                "
+              ></div>
+            </div>
+          </div>
+          <div>
+            <div class="flex justify-between mb-2">
+              <span class="text-sm">Anclaje 5-4-3-2-1</span>
+              <span class="text-sm" style="color: #64748b">10 veces</span>
+            </div>
+            <div
+              style="
+                width: 100%;
+                background: #cbd5e1;
+                border-radius: 9999px;
+                height: 0.75rem;
+                overflow: hidden;
+              "
+            >
+              <div
+                style="
+                  width: 67%;
+                  height: 100%;
+                  background: #8b5cf6;
+                  border-radius: 9999px;
+                "
+              ></div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="alert alert-info mb-6">
+        <h3 style="color: #1e3a8a; margin-bottom: 0.5rem">💡 Insights</h3>
+        <ul class="text-sm" style="color: #1e3a8a; padding-left: 1rem">
+          <li>Tus crisis tienden a ocurrir más los miércoles</li>
+          <li>Has usado la Respiración Pausada con éxito 15 veces</li>
+          <li>Tu intensidad emocional ha disminuido un 15% este mes</li>
+        </ul>
+      </div>
+
+      <div class="card">
+        <h2 class="mb-4 flex items-center gap-2">
+          <span>📥</span>
+          <span>Exportar Datos</span>
+        </h2>
+        <div style="display: flex; gap: 0.75rem">
+          <button
+            class="btn-primary"
+            style="background: #f43f5e; flex: 1"
+            onclick="alert('Exportando PDF...')"
+          >
+            📄 Exportar PDF
+          </button>
+          <button
+            class="btn-primary"
+            style="flex: 1"
+            onclick="alert('Exportando CSV...')"
+          >
+            📊 Exportar CSV
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Screen: Settings -->
+    <div id="screen-settings" class="container container-with-nav hidden">
+      <h1 class="mb-6">Configuración</h1>
+
+      <div class="space-y-3">
+        <button class="btn-card">
+          <div class="flex items-center justify-between">
+            <div class="flex items-center gap-3">
+              <div
+                style="
+                  background: #ccfbf1;
+                  padding: 0.5rem;
+                  border-radius: 0.5rem;
+                "
+              >
+                <span style="color: #0d9488">👤</span>
+              </div>
+              <div>
+                <div style="color: #1e293b">Perfil</div>
+                <div class="text-sm" style="color: #64748b">
+                  Nombre, email, teléfono
+                </div>
+              </div>
+            </div>
+            <span style="color: #94a3b8">›</span>
+          </div>
+        </button>
+
+        <button class="btn-card">
+          <div class="flex items-center justify-between">
+            <div class="flex items-center gap-3">
+              <div
+                style="
+                  background: #e9d5ff;
+                  padding: 0.5rem;
+                  border-radius: 0.5rem;
+                "
+              >
+                <span style="color: #9333ea">🔒</span>
+              </div>
+              <div>
+                <div style="color: #1e293b">Seguridad</div>
+                <div class="text-sm" style="color: #64748b">
+                  Contraseña y privacidad
+                </div>
+              </div>
+            </div>
+            <span style="color: #94a3b8">›</span>
+          </div>
+        </button>
+
+        <button class="btn-card">
+          <div class="flex items-center justify-between">
+            <div class="flex items-center gap-3">
+              <div
+                style="
+                  background: #fecdd3;
+                  padding: 0.5rem;
+                  border-radius: 0.5rem;
+                "
+              >
+                <span style="color: #e11d48">📞</span>
+              </div>
+              <div>
+                <div style="color: #1e293b">Contactos de Emergencia</div>
+                <div class="text-sm" style="color: #64748b">
+                  Gestiona tus contactos
+                </div>
+              </div>
+            </div>
+            <span style="color: #94a3b8">›</span>
+          </div>
+        </button>
+
+        <button class="btn-card">
+          <div class="flex items-center justify-between">
+            <div class="flex items-center gap-3">
+              <div
+                style="
+                  background: #dbeafe;
+                  padding: 0.5rem;
+                  border-radius: 0.5rem;
+                "
+              >
+                <span style="color: #2563eb">🌙</span>
+              </div>
+              <div>
+                <div style="color: #1e293b">Preferencias</div>
+                <div class="text-sm" style="color: #64748b">
+                  Accesibilidad y sincronización
+                </div>
+              </div>
+            </div>
+            <span style="color: #94a3b8">›</span>
+          </div>
+        </button>
+
+        <button
+          class="btn-secondary"
+          style="border-color: #f43f5e; color: #e11d48"
+          onclick="app.logout()"
+        >
+          <div
+            class="flex items-center justify-between"
+            style="justify-content: center"
+          >
+            <span>🚪 Cerrar Sesión</span>
+          </div>
+        </button>
+      </div>
+
+      <div class="text-center" style="margin-top: 1.5rem">
+        <p class="text-sm" style="color: #64748b">Versión 1.0.0 (Prototipo)</p>
+      </div>
+    </div>
+
+    <!-- Bottom Navigation -->
+    <nav id="bottom-nav" class="bottom-nav hidden">
+      <div class="nav-container">
+        <button
+          class="nav-item"
+          onclick="app.navigateTo('home')"
+          data-nav="home"
+        >
+          <svg
+            class="nav-icon"
+            fill="none"
+            stroke="currentColor"
+            viewBox="0 0 24 24"
+          >
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="2"
+              d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"
+            ></path>
+          </svg>
+          <span>Inicio</span>
+        </button>
+        <button
+          class="nav-item"
+          onclick="app.navigateTo('crisis')"
+          data-nav="crisis"
+        >
+          <svg
+            class="nav-icon"
+            fill="none"
+            stroke="currentColor"
+            viewBox="0 0 24 24"
+          >
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="2"
+              d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"
+            ></path>
+          </svg>
+          <span>Crisis</span>
+        </button>
+        <button
+          class="nav-item"
+          onclick="app.navigateTo('skills')"
+          data-nav="skills"
+        >
+          <svg
+            class="nav-icon"
+            fill="none"
+            stroke="currentColor"
+            viewBox="0 0 24 24"
+          >
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="2"
+              d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z"
+            ></path>
+          </svg>
+          <span>Habilidades</span>
+        </button>
+        <button
+          class="nav-item"
+          onclick="app.navigateTo('diary')"
+          data-nav="diary"
+        >
+          <svg
+            class="nav-icon"
+            fill="none"
+            stroke="currentColor"
+            viewBox="0 0 24 24"
+          >
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="2"
+              d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"
+            ></path>
+          </svg>
+          <span>Diario</span>
+        </button>
+        <button
+          class="nav-item"
+          onclick="app.navigateTo('settings')"
+          data-nav="settings"
+        >
+          <svg
+            class="nav-icon"
+            fill="none"
+            stroke="currentColor"
+            viewBox="0 0 24 24"
+          >
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="2"
+              d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z"
+            ></path>
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="2"
+              d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"
+            ></path>
+          </svg>
+          <span>Perfil</span>
+        </button>
+      </div>
+    </nav>
+
+    <script>
+      // Datos de habilidades DBT por nivel de malestar
+      const CRISIS_SKILLS = [
+        {
+          id: "ice-dive",
+          name: "Inmersión en Frío (TIP)",
+          icon: "❄️",
+          minDistress: 7,
+          maxDistress: 10,
+          steps: [
+            "Llena un recipiente con agua fría y hielo",
+            "Respira profundo 3 veces",
+            "Sumerge tu cara en el agua por 15-30 segundos",
+            "Sal del agua y respira normalmente",
+            "Repite si es necesario",
+          ],
+        },
+        {
+          id: "paced-breathing",
+          name: "Respiración Pausada",
+          icon: "🌬️",
+          minDistress: 4,
+          maxDistress: 9,
+          steps: [
+            "Encuentra una posición cómoda",
+            "Inhala contando hasta 4",
+            "Mantén el aire contando hasta 4",
+            "Exhala contando hasta 6",
+            "Repite durante 5 minutos",
+          ],
+        },
+        {
+          id: "intense-exercise",
+          name: "Ejercicio Intenso",
+          icon: "🏃",
+          minDistress: 6,
+          maxDistress: 10,
+          steps: [
+            "Elige un ejercicio: saltar, correr en el lugar, flexiones",
+            "Hazlo con intensidad por 5-10 minutos",
+            "Enfócate en las sensaciones físicas",
+            "Respira profundamente al terminar",
+            "Observa cómo te sientes ahora",
+          ],
+        },
+        {
+          id: "5-4-3-2-1",
+          name: "Anclaje 5-4-3-2-1",
+          icon: "👁️",
+          minDistress: 3,
+          maxDistress: 8,
+          steps: [
+            "Nombra 5 cosas que PUEDES VER",
+            "Nombra 4 cosas que PUEDES TOCAR",
+            "Nombra 3 cosas que PUEDES ESCUCHAR",
+            "Nombra 2 cosas que PUEDES OLER",
+            "Nombra 1 cosa que PUEDES SABOREAR",
+          ],
+        },
+        {
+          id: "self-soothe",
+          name: "Auto-tranquilización",
+          icon: "🌸",
+          minDistress: 2,
+          maxDistress: 7,
+          steps: [
+            "Vista: Mira algo hermoso (naturaleza, arte)",
+            "Oído: Escucha música relajante",
+            "Olfato: Huele algo agradable (vela, perfume)",
+            "Tacto: Toca algo suave (manta, mascota)",
+            "Gusto: Saborea algo delicioso mindfully",
+          ],
+        },
+        {
+          id: "radical-acceptance",
+          name: "Aceptación Radical",
+          icon: "🕊️",
+          minDistress: 3,
+          maxDistress: 9,
+          steps: [
+            "Observa la situación sin juzgarla",
+            'Reconoce: "Es lo que es en este momento"',
+            "Nota la resistencia en tu cuerpo",
+            "Respira y relaja conscientemente",
+            'Repite: "Acepto esta realidad ahora"',
+          ],
+        },
+      ];
+
+      // Aplicación principal
+      const app = {
+        currentScreen: "welcome",
+        isAuthenticated: false,
+
+        // Crisis state
+        crisisStep: "distress-level",
+        distressLevel: 5,
+        currentSkillIndex: 0,
+        currentStepIndex: 0,
+        recommendedSkills: [],
+
+        // Skills state
+        skillsView: "catalog",
+        selectedCategory: "all",
+
+        // Diary state
+        diaryView: "list",
+        diaryEntries: [
+          {
+            id: "1",
+            date: new Date("2024-01-15"),
+            emotions: ["Ansiedad", "Miedo"],
+            intensity: 7,
+            thoughts: "Preocupado por la presentación de mañana",
+          },
+          {
+            id: "2",
+            date: new Date("2024-01-14"),
+            emotions: ["Calma", "Alegría"],
+            intensity: 4,
+            thoughts: "Me siento bien después de practicar mindfulness",
+          },
+        ],
+
+        init() {
+          this.setupOfflineSimulation();
+          this.renderSkillsContent();
+          this.renderDiaryContent();
+        },
+
+        setupOfflineSimulation() {
+          setInterval(() => {
+            if (Math.random() > 0.95) {
+              const isOffline = !document
+                .getElementById("offline-banner")
+                .classList.contains("hidden");
+              if (isOffline) {
+                document
+                  .getElementById("offline-banner")
+                  .classList.add("hidden");
+                document
+                  .getElementById("syncing-banner")
+                  .classList.remove("hidden");
+                setTimeout(() => {
+                  document
+                    .getElementById("syncing-banner")
+                    .classList.add("hidden");
+                }, 2000);
+              } else {
+                document
+                  .getElementById("offline-banner")
+                  .classList.remove("hidden");
+              }
+            }
+          }, 5000);
+        },
+
+        navigateTo(screen) {
+          // Ocultar todas las pantallas
+          document.querySelectorAll('[id^="screen-"]').forEach((el) => {
+            el.classList.add("hidden");
+          });
+
+          // Mostrar la pantalla solicitada
+          document
+            .getElementById(`screen-${screen}`)
+            .classList.remove("hidden");
+
+          this.currentScreen = screen;
+
+          // Mostrar/ocultar navegación inferior
+          const showNav =
+            this.isAuthenticated && !["welcome", "login"].includes(screen);
+          if (showNav) {
+            document.getElementById("bottom-nav").classList.remove("hidden");
+            // Actualizar estado activo
+            document.querySelectorAll(".nav-item").forEach((item) => {
+              item.classList.remove("active");
+            });
+            const activeNav = document.querySelector(`[data-nav="${screen}"]`);
+            if (activeNav) activeNav.classList.add("active");
+          } else {
+            document.getElementById("bottom-nav").classList.add("hidden");
+          }
+
+          // Renderizar contenido dinámico según la pantalla
+          if (screen === "crisis") {
+            // Reiniciar crisis al entrar
+            this.crisisStep = "distress-level";
+            this.currentSkillIndex = 0;
+            this.currentStepIndex = 0;
+            this.renderCrisisContent();
+          } else if (screen === "skills") {
+            this.renderSkillsContent();
+          } else if (screen === "diary") {
+            this.renderDiaryContent();
+          }
+        },
+
+        handleLogin(e) {
+          e.preventDefault();
+          this.isAuthenticated = true;
+          this.navigateTo("home");
+        },
+
+        handleBiometricLogin() {
+          setTimeout(() => {
+            this.isAuthenticated = true;
+            this.navigateTo("home");
+          }, 800);
+        },
+
+        logout() {
+          this.isAuthenticated = false;
+          this.navigateTo("welcome");
+        },
+
+        getRecommendedSkills(distressLevel) {
+          // Filtrar habilidades según el nivel de malestar
+          return CRISIS_SKILLS.filter(
+            (skill) =>
+              distressLevel >= skill.minDistress &&
+              distressLevel <= skill.maxDistress
+          ).sort(() => Math.random() - 0.5); // Mezclar aleatoriamente
+        },
+
+        startCrisisExercises() {
+          this.recommendedSkills = this.getRecommendedSkills(
+            this.distressLevel
+          );
+          if (this.recommendedSkills.length > 0) {
+            this.currentSkillIndex = 0;
+            this.currentStepIndex = 0;
+            this.crisisStep = "skill-execution";
+            this.renderCrisisContent();
+          } else {
+            alert(
+              "No hay habilidades disponibles para este nivel. Intenta ajustar tu nivel de malestar."
+            );
+          }
+        },
+
+        nextStep() {
+          const currentSkill = this.recommendedSkills[this.currentSkillIndex];
+          if (this.currentStepIndex < currentSkill.steps.length - 1) {
+            this.currentStepIndex++;
+            this.renderCrisisContent();
+          } else {
+            // Terminar ejercicio, preguntar si mejoró
+            this.crisisStep = "check-improvement";
+            this.renderCrisisContent();
+          }
+        },
+
+        previousStep() {
+          if (this.currentStepIndex > 0) {
+            this.currentStepIndex--;
+            this.renderCrisisContent();
+          }
+        },
+
+        handleImproved() {
+          alert("¡Excelente trabajo! Tu progreso ha sido guardado.");
+          this.crisisStep = "distress-level";
+          this.currentSkillIndex = 0;
+          this.currentStepIndex = 0;
+          this.renderCrisisContent();
+        },
+
+        handleNotImproved() {
+          // Ir a la siguiente habilidad
+          if (this.currentSkillIndex < this.recommendedSkills.length - 1) {
+            this.currentSkillIndex++;
+            this.currentStepIndex = 0;
+            this.crisisStep = "skill-execution";
+            this.renderCrisisContent();
+          } else {
+            // No hay más habilidades, mostrar contactos de emergencia
+            this.crisisStep = "emergency-contacts";
+            this.renderCrisisContent();
+          }
+        },
+
+        renderCrisisContent() {
+          const container = document.getElementById("crisis-content");
+
+          if (this.crisisStep === "distress-level") {
+            container.innerHTML = `
+                        <div class="mb-8">
+                            <div class="text-center mb-6">
+                                <div style="font-size: 3rem; margin-bottom: 0.75rem;">🆘</div>
+                                <h1 class="mb-2">Modo Crisis</h1>
+                                <p style="color: #64748b;">
+                                    Vamos a ayudarte paso a paso. Respira profundo.
+                                </p>
+                            </div>
+                        </div>
+
+                        <div class="card mb-6">
+                            <h2 class="mb-4">¿Cuál es tu nivel de malestar ahora?</h2>
+                            
+                            <div class="mb-6">
+                                <div class="intensity-display ${this.getDistressColorClass(
+                                  this.distressLevel
+                                )}">
+                                    <div class="intensity-number">${
+                                      this.distressLevel
+                                    }</div>
+                                    <div>${this.getDistressLabel(
+                                      this.distressLevel
+                                    )}</div>
+                                </div>
+
+                                <input
+                                    type="range"
+                                    min="1"
+                                    max="10"
+                                    value="${this.distressLevel}"
+                                    oninput="app.distressLevel = parseInt(this.value); app.renderCrisisContent();"
+                                />
+                                
+                                <div class="flex justify-between" style="margin-top: 0.5rem;">
+                                    <span class="text-sm" style="color: #64748b;">1 - Tranquilo</span>
+                                    <span class="text-sm" style="color: #64748b;">10 - Crisis</span>
+                                </div>
+                            </div>
+
+                            <button class="btn-primary" onclick="app.startCrisisExercises();">
+                                Continuar →
+                            </button>
+                        </div>
+
+                        ${
+                          !this.isAuthenticated
+                            ? `
+                            <div class="alert alert-info text-center">
+                                💡 Inicia sesión para guardar tu progreso y acceder a más funciones
+                            </div>
+                        `
+                            : ""
+                        }
+                    `;
+          } else if (this.crisisStep === "skill-execution") {
+            const currentSkill = this.recommendedSkills[this.currentSkillIndex];
+            const isLastStep =
+              this.currentStepIndex === currentSkill.steps.length - 1;
+
+            container.innerHTML = `
+                        <div class="mb-6">
+                            <div style="font-size: 3rem; margin-bottom: 0.75rem; text-align: center;">${
+                              currentSkill.icon
+                            }</div>
+                            <h1 class="mb-2 text-center">${
+                              currentSkill.name
+                            }</h1>
+                            <p style="color: #64748b; text-align: center;">Sigue los pasos con calma</p>
+                        </div>
+
+                        <!-- Progreso -->
+                        <div class="mb-6">
+                            <div class="progress-container">
+                                ${currentSkill.steps
+                                  .map(
+                                    (_, index) => `
+                                    <div class="progress-bar ${
+                                      index <= this.currentStepIndex
+                                        ? "active"
+                                        : ""
+                                    }"></div>
+                                `
+                                  )
+                                  .join("")}
+                            </div>
+                            <p class="text-sm text-center" style="color: #64748b;">
+                                Paso ${this.currentStepIndex + 1} de ${
+              currentSkill.steps.length
+            }
+                            </p>
+                        </div>
+
+                        <!-- Contenido del paso -->
+                        <div class="card mb-6">
+                            <div style="font-size: 1.125rem; color: #1e293b; margin-bottom: 1.5rem; min-height: 100px; display: flex; align-items: center; text-align: center;">
+                                ${currentSkill.steps[this.currentStepIndex]}
+                            </div>
+
+                            <!-- Opciones de formato -->
+                            <div style="display: flex; gap: 0.75rem; margin-bottom: 1.5rem;">
+                                <button style="flex: 1; background: #ccfbf1; color: #0f766e; padding: 0.5rem 1rem; border-radius: 0.75rem; border: none; cursor: pointer; font-size: 0.875rem;">
+                                    📝 Texto
+                                </button>
+                                <button style="flex: 1; background: #e9d5ff; color: #7c3aed; padding: 0.5rem 1rem; border-radius: 0.75rem; border: none; cursor: pointer; font-size: 0.875rem;">
+                                    🔊 Audio
+                                </button>
+                                <button style="flex: 1; background: #dbeafe; color: #2563eb; padding: 0.5rem 1rem; border-radius: 0.75rem; border: none; cursor: pointer; font-size: 0.875rem;">
+                                    👁️ Visual
+                                </button>
+                            </div>
+
+                            <!-- Navegación -->
+                            <div style="display: flex; gap: 0.75rem;">
+                                ${
+                                  this.currentStepIndex > 0
+                                    ? `
+                                    <button
+                                        onclick="app.previousStep()"
+                                        class="btn-secondary"
+                                        style="flex: 1;"
+                                    >
+                                        Anterior
+                                    </button>
+                                `
+                                    : ""
+                                }
+                                <button
+                                    onclick="app.nextStep()"
+                                    class="btn-primary"
+                                    style="flex: 1;"
+                                >
+                                    ${isLastStep ? "Terminar" : "Siguiente"}
+                                </button>
+                            </div>
+                        </div>
+
+                        <!-- Sugerencia -->
+                        <div class="alert alert-info text-center">
+                            💙 Tómate el tiempo que necesites en cada paso
+                        </div>
+                    `;
+          } else if (this.crisisStep === "check-improvement") {
+            const currentSkill = this.recommendedSkills[this.currentSkillIndex];
+            const hasMoreSkills =
+              this.currentSkillIndex < this.recommendedSkills.length - 1;
+
+            container.innerHTML = `
+                        <div style="display: flex; flex-direction: column; justify-content: center; min-height: 70vh;">
+                            <div class="text-center mb-8">
+                                <div style="font-size: 4rem; margin-bottom: 1rem;">🌟</div>
+                                <h1 class="mb-3">¿Cómo te sientes ahora?</h1>
+                                <p style="color: #64748b;">
+                                    Completaste: ${currentSkill.name}
+                                </p>
+                            </div>
+
+                            <div class="space-y-4">
+                                <button
+                                    onclick="app.handleImproved()"
+                                    class="btn-home-action bg-gradient-green"
+                                >
+                                    <div style="font-size: 2.5rem; margin-bottom: 0.5rem;">✓</div>
+                                    <div style="font-size: 1.125rem;">Me siento mejor</div>
+                                </button>
+
+                                <button
+                                    onclick="app.handleNotImproved()"
+                                    class="btn-home-action bg-gradient-orange"
+                                >
+                                    <div style="font-size: 2.5rem; margin-bottom: 0.5rem;">→</div>
+                                    <div style="font-size: 1.125rem;">
+                                        ${
+                                          hasMoreSkills
+                                            ? "Intentar otra habilidad"
+                                            : "Necesito más ayuda"
+                                        }
+                                    </div>
+                                </button>
+                            </div>
+                        </div>
+                    `;
+          } else if (this.crisisStep === "emergency-contacts") {
+            container.innerHTML = `
+                        <div class="text-center mb-8">
+                            <div style="font-size: 3rem; margin-bottom: 0.75rem;">🆘</div>
+                            <h1 class="mb-2">Contactos de Emergencia</h1>
+                            <p style="color: #64748b;">
+                                No estás solo/a. Aquí hay personas que pueden ayudarte.
+                            </p>
+                        </div>
+
+                        <div class="space-y-3 mb-6">
+                            <div class="card" style="border: 2px solid #f43f5e;">
+                                <div class="flex items-center justify-between mb-2">
+                                    <h3>Línea de Crisis 24/7</h3>
+                                    <span class="badge" style="background: #fecdd3; color: #e11d48;">Urgente</span>
+                                </div>
+                                <div class="flex items-center justify-between">
+                                    <span style="color: #64748b;">911</span>
+                                    <button class="btn-primary" style="width: auto; padding: 0.5rem 1.5rem;">
+                                        📞 Llamar
+                                    </button>
+                                </div>
+                            </div>
+
+                            <div class="card">
+                                <h3 class="mb-2">Línea de Prevención del Suicidio</h3>
+                                <div class="flex items-center justify-between">
+                                    <span style="color: #64748b;">1-800-273-8255</span>
+                                    <button class="btn-primary" style="width: auto; padding: 0.5rem 1.5rem;">
+                                        📞 Llamar
+                                    </button>
+                                </div>
+                            </div>
+
+                            <div class="card">
+                                <h3 class="mb-2">Terapeuta DBT</h3>
+                                <div class="flex items-center justify-between">
+                                    <span style="color: #64748b;">Configurar en ajustes</span>
+                                    <button class="btn-secondary" style="width: auto; padding: 0.5rem 1.5rem;">
+                                        Configurar
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <button class="btn-secondary mb-6" onclick="app.crisisStep = 'distress-level'; app.renderCrisisContent();">
+                            Volver al inicio
+                        </button>
+
+                        <div style="background: #fef3c7; border: 2px solid #fde68a; border-radius: 0.75rem; padding: 1rem;">
+                            <p class="text-center" style="color: #92400e; font-size: 0.875rem;">
+                                ⚠️ Si estás en peligro inmediato, llama al 911 o acude a urgencias
+                            </p>
+                        </div>
+                    `;
+          }
+        },
+
+        getDistressColorClass(level) {
+          if (level <= 3) return "bg-gradient-green";
+          if (level <= 5) return "bg-gradient-yellow";
+          if (level <= 7) return "bg-gradient-orange";
+          return "bg-gradient-rose";
+        },
+
+        getDistressLabel(level) {
+          if (level <= 3) return "Leve";
+          if (level <= 5) return "Moderado";
+          if (level <= 7) return "Alto";
+          return "Muy Alto";
+        },
+
+        renderSkillsContent() {
+          const container = document.getElementById("skills-content");
+          if (this.skillsView === "catalog") {
+            container.innerHTML = `
+                        <div class="mb-6">
+                            <h1 class="mb-4">Practicar Habilidades</h1>
+                            
+                            <div class="search-wrapper">
+                                <svg class="search-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
+                                </svg>
+                                <input
+                                    type="text"
+                                    class="search-input"
+                                    placeholder="Buscar habilidad..."
+                                />
+                            </div>
+
+                            <div class="filter-pills">
+                                <button class="filter-pill active">📚 Todas</button>
+                                <button class="filter-pill">❤️ Regulación Emocional</button>
+                                <button class="filter-pill">🧘 Mindfulness</button>
+                                <button class="filter-pill">💪 Tolerancia al Malestar</button>
+                                <button class="filter-pill">💬 Efectividad Interpersonal</button>
+                            </div>
+                        </div>
+
+                        <div class="space-y-3">
+                            <button class="btn-card">
+                                <div class="flex items-start gap-3">
+                                    <div style="font-size: 2rem;">🔄</div>
+                                    <div style="flex: 1;">
+                                        <h3 class="mb-2">Acción Opuesta</h3>
+                                        <p class="text-sm mb-2" style="color: #64748b;">
+                                            Actúa de manera opuesta a tu impulso emocional
+                                        </p>
+                                        <div class="flex items-center justify-between">
+                                            <span class="badge badge-teal">Regulación Emocional</span>
+                                            <span class="text-xs" style="color: #64748b;">1 ejercicio</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </button>
+
+                            <button class="btn-card">
+                                <div class="flex items-start gap-3">
+                                    <div style="font-size: 2rem;">🧠</div>
+                                    <div style="flex: 1;">
+                                        <h3 class="mb-2">Mente Sabia</h3>
+                                        <p class="text-sm mb-2" style="color: #64748b;">
+                                            Integra la razón y la emoción
+                                        </p>
+                                        <div class="flex items-center justify-between">
+                                            <span class="badge badge-teal">Mindfulness</span>
+                                            <span class="text-xs" style="color: #64748b;">1 ejercicio</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </button>
+
+                            <button class="btn-card">
+                                <div class="flex items-start gap-3">
+                                    <div style="font-size: 2rem;">🧊</div>
+                                    <div style="flex: 1;">
+                                        <h3 class="mb-2">Habilidades TIP</h3>
+                                        <p class="text-sm mb-2" style="color: #64748b;">
+                                            Temperatura, Intenso ejercicio, Pausar respiración
+                                        </p>
+                                        <div class="flex items-center justify-between">
+                                            <span class="badge badge-teal">Tolerancia al Malestar</span>
+                                            <span class="text-xs" style="color: #64748b;">1 ejercicio</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </button>
+
+                            <button class="btn-card">
+                                <div class="flex items-start gap-3">
+                                    <div style="font-size: 2rem;">💬</div>
+                                    <div style="flex: 1;">
+                                        <h3 class="mb-2">DEAR MAN</h3>
+                                        <p class="text-sm mb-2" style="color: #64748b;">
+                                            Estrategia para pedir lo que necesitas efectivamente
+                                        </p>
+                                        <div class="flex items-center justify-between">
+                                            <span class="badge badge-teal">Efectividad Interpersonal</span>
+                                            <span class="text-xs" style="color: #64748b;">1 ejercicio</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </button>
+                        </div>
+                    `;
+          }
+        },
+
+        renderDiaryContent() {
+          const container = document.getElementById("diary-content");
+          if (this.diaryView === "list") {
+            if (this.diaryEntries.length === 0) {
+              container.innerHTML = `
+                            <div class="text-center" style="padding: 3rem 0;">
+                                <div style="font-size: 4rem; margin-bottom: 1rem;">📔</div>
+                                <h2 class="mb-2">No hay registros aún</h2>
+                                <p class="mb-6" style="color: #64748b;">
+                                    Comienza a registrar tus emociones para comprender mejor tus patrones
+                                </p>
+                                <button class="btn-primary" onclick="app.diaryView = 'new'; app.renderDiaryContent();">
+                                    Crear primer registro
+                                </button>
+                            </div>
+                        `;
+            } else {
+              let entriesHTML = "";
+              this.diaryEntries.forEach((entry) => {
+                const emotionsHTML = entry.emotions
+                  .map(
+                    (e) =>
+                      `<span style="background: #60a5fa; color: white; padding: 0.25rem 0.75rem; border-radius: 9999px; font-size: 0.875rem; margin-right: 0.5rem;">${e}</span>`
+                  )
+                  .join("");
+
+                entriesHTML += `
+                                <button class="btn-card">
+                                    <div class="flex items-start justify-between mb-3">
+                                        <div style="flex: 1;">
+                                            <p class="text-sm mb-2" style="color: #64748b;">
+                                                ${entry.date.toLocaleDateString(
+                                                  "es-ES",
+                                                  {
+                                                    day: "numeric",
+                                                    month: "long",
+                                                    year: "numeric",
+                                                    hour: "2-digit",
+                                                    minute: "2-digit",
+                                                  }
+                                                )}
+                                            </p>
+                                            <div class="mb-2">${emotionsHTML}</div>
+                                        </div>
+                                        <div style="margin-left: 0.75rem;">
+                                            <div style="background: #fb923c; color: white; width: 3rem; height: 3rem; border-radius: 50%; display: flex; align-items: center; justify-content: center;">
+                                                ${entry.intensity}
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <p class="text-sm" style="color: #64748b;">
+                                        💭 ${entry.thoughts}
+                                    </p>
+                                </button>
+                            `;
+              });
+
+              container.innerHTML = `
+                            <div class="flex items-center justify-between mb-6">
+                                <div>
+                                    <h1 class="mb-2">Diario EMO</h1>
+                                    <p class="text-sm" style="color: #64748b;">Registro emocional</p>
+                                </div>
+                                <button 
+                                    onclick="app.diaryView = 'new'; app.renderDiaryContent();"
+                                    class="btn-primary"
+                                    style="width: auto; padding: 0.75rem 1rem; border-radius: 50%;"
+                                >
+                                    +
+                                </button>
+                            </div>
+
+                            <div class="space-y-3">
+                                ${entriesHTML}
+                            </div>
+                        `;
+            }
+          } else if (this.diaryView === "new") {
+            container.innerHTML = `
+                        <button class="back-btn" onclick="app.diaryView = 'list'; app.renderDiaryContent();">
+                            ← Volver
+                        </button>
+
+                        <div class="mb-6">
+                            <h1 class="mb-2">Nuevo Registro</h1>
+                            <p style="color: #64748b;">Describe cómo te sientes ahora</p>
+                        </div>
+
+                        <div class="space-y-6">
+                            <div>
+                                <label style="display: block; color: #475569; margin-bottom: 0.75rem;">
+                                    ¿Qué emociones estás sintiendo?
+                                </label>
+                                <div class="emotion-grid">
+                                    <button class="emotion-btn">
+                                        <div style="font-size: 1.5rem; margin-bottom: 0.25rem;">😊</div>
+                                        <div>Alegría</div>
+                                    </button>
+                                    <button class="emotion-btn">
+                                        <div style="font-size: 1.5rem; margin-bottom: 0.25rem;">😢</div>
+                                        <div>Tristeza</div>
+                                    </button>
+                                    <button class="emotion-btn">
+                                        <div style="font-size: 1.5rem; margin-bottom: 0.25rem;">😠</div>
+                                        <div>Enojo</div>
+                                    </button>
+                                    <button class="emotion-btn">
+                                        <div style="font-size: 1.5rem; margin-bottom: 0.25rem;">😰</div>
+                                        <div>Miedo</div>
+                                    </button>
+                                    <button class="emotion-btn">
+                                        <div style="font-size: 1.5rem; margin-bottom: 0.25rem;">😰</div>
+                                        <div>Ansiedad</div>
+                                    </button>
+                                    <button class="emotion-btn">
+                                        <div style="font-size: 1.5rem; margin-bottom: 0.25rem;">😌</div>
+                                        <div>Calma</div>
+                                    </button>
+                                </div>
+                            </div>
+
+                            <div>
+                                <label style="display: block; color: #475569; margin-bottom: 0.75rem;">
+                                    Intensidad (1-10)
+                                </label>
+                                <div class="intensity-display bg-gradient-orange">
+                                    <div class="intensity-number">5</div>
+                                    <div>Moderada</div>
+                                </div>
+                                <input type="range" min="1" max="10" value="5" />
+                            </div>
+
+                            <div>
+                                <label style="display: block; color: #475569; margin-bottom: 0.5rem;">
+                                    💭 Pensamientos
+                                </label>
+                                <textarea
+                                    placeholder="¿Qué pensamientos tienes?"
+                                    rows="3"
+                                ></textarea>
+                            </div>
+
+                            <div>
+                                <label style="display: block; color: #475569; margin-bottom: 0.5rem;">
+                                    🫀 Sensaciones físicas
+                                </label>
+                                <textarea
+                                    placeholder="¿Qué sientes en tu cuerpo?"
+                                    rows="3"
+                                ></textarea>
+                            </div>
+
+                            <button class="btn-primary" onclick="app.saveDiaryEntry()">
+                                Guardar registro
+                            </button>
+                        </div>
+                    `;
+          }
+        },
+
+        saveDiaryEntry() {
+          alert("Registro guardado correctamente");
+          this.diaryView = "list";
+          this.renderDiaryContent();
+        },
+      };
+
+      // Inicializar la aplicación cuando el DOM esté listo
+      document.addEventListener("DOMContentLoaded", () => {
+        app.init();
+      });
+    </script>
+    <script src="index.js"></script>
+  </body>
+</html>
