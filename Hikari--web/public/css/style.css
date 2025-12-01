@@ -422,6 +422,11 @@ button[type="submit"]:hover {
     margin-bottom: 10px;
 }
 
+.emoji.activo {
+    opacity: 1;
+    transform: scale(1.2);
+}
+
 .slider {
     width: 100%;
     appearance: none;
@@ -446,4 +451,247 @@ button[type="submit"]:hover {
     background: #2e6e54;
 }
 
-/* ejercicios DBT */
+.botones-navegacion {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 20px;
+}
+
+.btn-continuar {
+    background: #439778;
+    color: #fff;
+    border: none;
+    padding: 10px 25px;
+    border-radius: 20px;
+    font-size: 15px;
+    cursor: pointer;
+    transition: .3s;
+}
+
+.btn-continuar:hover {
+    background: #2e6e54;
+}
+
+.btn-regresar {
+    background: transparent;
+    color: #439778;
+    border: 2px solid #439778;
+    padding: 10px 20px;
+    border-radius: 20px;
+    font-size: 15px;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.btn-regresar:hover {
+    background: #e6f4ef;
+}
+
+/* Perfil */
+.perfil {
+    max-width: 600px;
+    margin: 60px auto;
+    padding: 30px 25px;
+    background: #ffffff;
+    border-radius: 15px;
+    box-shadow: 0 4px 18px rgba(0, 0, 0, 0.08);
+}
+
+.perfil-header {
+    text-align: center;
+    margin-bottom: 35px;
+}
+
+.avatar {
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    object-fit: cover;
+    margin-bottom: 12px;
+    border: 3px solid #66CEA8;
+}
+
+.perfil-nombre {
+    font-size: 24px;
+    color: #333;
+    margin-bottom: 5px;
+}
+
+.perfil-nombre {
+    font-weight: 600;
+    letter-spacing: 0.3px;
+}
+
+.perfil-correo {
+    font-size: 15px;
+    color: #666;
+}
+
+.perfil-opciones {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.perfil-item {
+    display: block;
+    background: #f4f8f7;
+    padding: 15px 18px;
+    border-radius: 12px;
+    text-decoration: none;
+    font-size: 17px;
+    color: #333;
+    transition: .25s;
+    border: 1px solid #e0e0e0;
+}
+
+.perfil-item:hover {
+    background: #e9f4f1;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+}
+
+/* configuracion */
+
+.configuracion {
+    max-width: 600px;
+    margin: 60px auto;
+    padding: 25px;
+    background: #fff;
+    border-radius: 12px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.08);
+}
+
+.configuracion h1 {
+    text-align: center;
+    margin-bottom: 35px;
+    color: #333;
+}
+
+.config-section {
+    margin-bottom: 25px;
+}
+
+.config-section h2 {
+    font-size: 18px;
+    color: #439778;
+    margin-bottom: 10px;
+}
+
+.config-item {
+    display: block;
+    background: #f4f8f7;
+    padding: 15px 18px;
+    border-radius: 10px;
+    text-decoration: none;
+    color: #333;
+    font-size: 16px;
+    margin-bottom: 10px;
+    transition: .25s;
+    border: 1px solid #e0e0e0;
+}
+
+.config-item:hover {
+    background: #e7f3ef;
+    transform: translateY(-2px);
+}
+
+.eliminar {
+    color: #c0392b;
+}
+
+.cerrar-sesion {
+    color: #a83225;
+    font-weight: 600;
+}
+
+/* Datos Personales*/
+
+.datos-personales {
+    max-width: 600px;
+    margin: 60px auto;
+    padding: 30px;
+    background: #ffffff;
+    border-radius: 15px;
+    box-shadow: 0 4px 18px rgba(0,0,0,0.08);
+}
+
+.datos-personales h1 {
+    text-align: center;
+    color: #333;
+    margin-bottom: 30px;
+}
+
+.form-group {
+    position: relative;
+    margin-bottom: 25px;
+}
+
+.form-group input {
+    width: 100%;
+    padding: 12px 10px;
+    font-size: 16px;
+    border: 1px solid #ccc;
+    border-radius: 10px;
+    outline: none;
+    background: #f8f8f8;
+}
+
+.form-group input:focus {
+    border-color: #66CEA8;
+    background: #ffffff;
+}
+
+.form-group label {
+    position: absolute;
+    top: 50%;
+    left: 12px;
+    transform: translateY(-50%);
+    color: #777;
+    transition: .3s;
+    pointer-events: none;
+}
+
+.form-group input:focus + label,
+.form-group input:not(:placeholder-shown) + label {
+    top: -8px;
+    left: 10px;
+    background: #ffffff;
+    padding: 0 4px;
+    font-size: 13px;
+    color: #439778;
+}
+
+.botones-editar {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 25px;
+}
+
+.btn-cancelar {
+    background: transparent;
+    border: 2px solid #439778;
+    color: #439778;
+    padding: 10px 20px;
+    border-radius: 20px;
+    cursor: pointer;
+    transition: .3s;
+}
+
+.btn-cancelar:hover {
+    background: #e6f4ef;
+}
+
+.btn-guardar {
+    background: #439778;
+    border: none;
+    color: white;
+    padding: 10px 25px;
+    border-radius: 20px;
+    cursor: pointer;
+    transition: .3s;
+}
+
+.btn-guardar:hover {
+    background: #2e6e54;
+}
