@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Hikari - Configuracion</title>
-    <link rel="stylesheet" href="../../../public/css/style.css"
+    <link rel="stylesheet" href="../../../public/css/style.css">
 </head>
 <body>
     <main class="configuracion">
@@ -34,5 +34,27 @@
     </section>
 
 </main>
+
+<div class="modal" id="modal-eliminar">
+            <div class="modal-content">
+
+                <h2>¿Estas seguro/a de eliminar tu cuenta?</h2>
+                <p>
+                    Esta accion no se puede deshacer.
+                    Tu cuenta sera eliminada permanentemente.
+                </p>
+                <div class="checkbox-group">
+                    <input type="checkbox" id="confirmar-historial">
+                    <label for="confirmar-historial">
+                        Tambien deseo eliminar mi historial de crisis
+                    </label>
+                </div>
+                <div class="modal-buttons">
+                    <button class="btn-cancelar-modal">Cancelar</button>
+                    <button class="btn-eliminar-modal">Eliminar cuenta</button>
+                </div>
+            </div>
+</div>
+<script> src="../../../public/js/configuracion.js"</script>
 </body>
 </html>
