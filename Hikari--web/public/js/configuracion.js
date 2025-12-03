@@ -1,5 +1,6 @@
-
+console.log("CONFIGURACION JS CARGADO");
 const btnEliminar = document.querySelector(".eliminar");
+console.log("BOTON ENCONTRADO:", btnEliminar);
 const modal = document.getElementById("modal-eliminar");
 const btnCancelarModal = document.querySelector(".btn-cancelar-modal");
 
