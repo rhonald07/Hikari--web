@@ -1,25 +1,61 @@
 /* Reset básico */
-body {
+.fondo-login {
     margin: 0;
     padding: 0;
-    font-family: 'Trebuchet MS', Arial, sans-serif;
-    background: linear-gradient(135deg, #66CEA8, #ffffff);
-    height: 100vh;
+    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+    background-image: url('../img/monte-fuji.jpeg');
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+}
+
+.fondo-home {
+    margin: 0;
+    padding: 0;
+    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+    background-image: url('../img/fondo-home 2.jpg');
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+}
+
+.fondo-registro {
+    margin: 0;
+    padding: 0;
+    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+    background-image: url('../img/fondo-home 2.jpg');
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
 }
 
 /* Contenedor del login */
 .formulario {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    
-    background: #f8f8f8;
+    width: 450px;
+    height: 450px;
+    margin: auto;
+    position: relative;
+    top: 170px;
+    background: rgba(255, 255, 255, 0.85);
+    backdrop-filter: blur(6px);
+    padding: 25px;
     border-radius: 12px;
-    
-    width: 90%;
-    max-width: 400px;
-    padding-bottom: 20px;
+    z-index: 1;
+}
+
+.logo-container {
+    position: absolute;
+    top: 50px;
+    left: 50%;
+    transform: translateX(-50%);
+    text-align: center;
+    z-index: 10;
+}
+
+.logo-login {
+    width: 120px;
+    height: auto;
+    opacity: 0.95;
 }
 
 /* Título */
@@ -75,11 +111,10 @@ form .username {
 
 /* Contraseña Incorrecta */
 .error {
-    color: #d9534f;
+    text-align: center;
     font-size: 14px;
-    margin-top: -10px;
-    margin-bottom: 15px;
-    display: none;
+    margin-top: 10px;
+    color: red;
 }
 
 /* Link para recuperar contraseña */
@@ -202,7 +237,7 @@ button[type="submit"]:hover {
 /* Navegador */
 .header {
     width: 100%;
-    background: #f8f8f8;
+    background: #439778;
     padding: 15px 0;
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
 }
@@ -221,28 +256,75 @@ button[type="submit"]:hover {
     height: 45px;
 }
 
+.navbar {
+    position: fixed;
+    top: 0;
+    right: -250px;
+    width: 250px;
+    height: 100vh;
+    background: #ffffff;
+    padding-top: 80px;
+    transition: right 0.3s ease-in-out;
+    box-shadow: -3px 0 10px rgba(0,0,0,0.2);
+    z-index: 1000;
+}
+
 .navbar ul {
     list-style: none;
-    display: flex;
-    gap: 25px;
+    display: block;
     margin: 0;
     padding: 0;
 }
 
-.navbar a {
-    text-decoration: none;
-    color: #333;
-    font-size: 16px;
-    transition: .3s;
+.navbar li {
+    margin: 20px 0;
 }
+
+.navbar a {
+    color: #439778;
+    font-size: 18px;
+    padding: 10px 25px;
+    display: block;
+    text-decoration: none;
+    transition: 0.2s;
+}
+
 
 .navbar a:hover {
-    color: #439778;
+    background: #E9F7F2;
+    border-radius: 8px;
 }
 
-#menu,
-.menu-icono {
+.navbar.active {
+    right: 0;
+}
+
+#menu {
     display: none;
+}
+.menu-icono {
+    display: block;
+    width: 35px;
+    height: 35px;
+    cursor: pointer;
+}
+
+.overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.4);
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.3s ease;
+    z-index: 900;
+}
+
+.overlay.active {
+    opacity: 1;
+    pointer-events: all;
 }
 
 /* contenido */
@@ -271,12 +353,16 @@ button[type="submit"]:hover {
 
 /* section crisis */
 .crisis-content {
+    display: block;
+    flex-direction: column;
     background: #ffffff;
     padding: 20px;
     margin: 20px auto;
     border-radius: 12px;
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-    max-width: 600px;
+    max-width: 500px;
+    height: 200px;
+    text-align: left;
 }
 
 .crisis-content h5 {
@@ -293,29 +379,36 @@ button[type="submit"]:hover {
 }
 
 .btn-crisis {
-    width: 100%;
-    padding: 12px;
+    display: inline-block;
+    padding: 10px 25px;
     background: #439778;
     color: #fff;
     border: none;
-    border-radius: 25px;
+    border-radius: 30px;
     font-size: 16px;
     cursor: pointer;
     transition: .3s;
+    margin-top: 10px;
 }
+
 
 .btn-crisis:hover {
     background: #2e6e54;
 }
 
+
 /* section habilidades*/
 .habilidades-content {
+    display: block;
+    flex-direction: column;
     background: #ffffff;
     padding: 20px;
     margin: 20px auto;
     border-radius: 12px;
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-    max-width: 600px;
+    max-width: 500px;
+    height: 200px;
+    text-align: left;
 }
 
 .habilidades-content h5 {
@@ -332,15 +425,16 @@ button[type="submit"]:hover {
 }
 
 .btn-habilidades {
-    width: 100%;
-    padding: 12px;
+    display: inline-block;
+    padding: 10px 25px;
     background: #439778;
     color: #fff;
     border: none;
-    border-radius: 25px;
+    border-radius: 30px;
     font-size: 16px;
     cursor: pointer;
     transition: .3s;
+    margin-top: 10px;
 }
 
 .btn-habilidades:hover {
@@ -704,7 +798,7 @@ button[type="submit"]:hover {
     top: 0;
     left: 0;
     width: 100%;
-    height: 100%;
+    height: 50%;
     background: rgba(0, 0, 0, 0.45);
     display: none;
     justify-content: center;
