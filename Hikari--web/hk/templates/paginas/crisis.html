@@ -1,45 +1,56 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="../../../public/css/style.css">
     <title>Hikari - Crisis</title>
 </head>
-<body>
+
+<body class="fondo-crisis">
+
     <main class="nivel_malestar">
+
+        <!-- BOTÓN CASITA -->
+        <button class="btn-home" id="btnHome">🏠</button>
+
         <h1>Registrar nivel de malestar</h1>
-        <h4>¿En que nivel de malestar te encuentras?</h4>
-        <div class="nivel-box">
-            <span class="nivel-text">NIVEL 1</span>
+        <h4>¿En qué nivel de malestar te encuentras?</h4>
+
+        <!-- CAJA DE NIVEL -->
+        <div class="nivel-box" id="nivelBox">
+            <span class="nivel-text" id="nivelText">NIVEL 1</span>
         </div>
-        <div class="emoji-line">
-            <span class="emoji e1">😁</span>
-            <span class="emoji e2">😄</span>
-            <span class="emoji e3">😊</span>
-            <span class="emoji e4">🙂</span>
-            <span class="emoji e5">😐</span>
-            <span class="emoji e6">😑</span>
-            <span class="emoji e7">😔</span>
-            <span class="emoji e8">😣</span>
-            <span class="emoji e9">😖</span>
-            <span class="emoji e10">😭</span>
+
+        <!-- EMOJIS -->
+        <div class="emoji-line" id="emojiLine">
+            <span class="emoji">😁</span>
+            <span class="emoji">😄</span>
+            <span class="emoji">😊</span>
+            <span class="emoji">🙂</span>
+            <span class="emoji">😐</span>
+            <span class="emoji">😑</span>
+            <span class="emoji">😔</span>
+            <span class="emoji">😣</span>
+            <span class="emoji">😖</span>
+            <span class="emoji">😭</span>
         </div>
-        <div>
-            <input 
+
+        <!-- SLIDER -->
+        <input 
             type="range"
             min="1"
             max="10"
             value="1"
             class="slider"
-            id="slider-malestar"
-            data-nivel="1"
-            >
-        <div class="botones-navegacion">
-        <button class="btn-regresar">Regresar</button>
-        <button class="btn-continuar">Continuar</button>
-        </div>
-        </div>
+            id="sliderMalestar"
+        >
+
+        <!-- BOTÓN CONTINUAR -->
+        <button class="btn-continuar" id="btnContinuar">Continuar</button>
+
     </main>
+
+    <script src="../../../public/js/crisis.js"></script>
 </body>
 </html>
