@@ -1,45 +1,33 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="../../../public/css/style.css">
-    <title>Hikari - Crisis</title>
-</head>
-<body>
-    <main class="nivel_malestar">
-        <h1>Registrar nivel de malestar</h1>
-        <h4>¿En que nivel de malestar te encuentras?</h4>
-        <div class="nivel-box">
-            <span class="nivel-text">NIVEL 1</span>
-        </div>
-        <div class="emoji-line">
-            <span class="emoji e1">😁</span>
-            <span class="emoji e2">😄</span>
-            <span class="emoji e3">😊</span>
-            <span class="emoji e4">🙂</span>
-            <span class="emoji e5">😐</span>
-            <span class="emoji e6">😑</span>
-            <span class="emoji e7">😔</span>
-            <span class="emoji e8">😣</span>
-            <span class="emoji e9">😖</span>
-            <span class="emoji e10">😭</span>
-        </div>
-        <div>
-            <input 
-            type="range"
-            min="1"
-            max="10"
-            value="1"
-            class="slider"
-            id="slider-malestar"
-            data-nivel="1"
-            >
-        <div class="botones-navegacion">
-        <button class="btn-regresar">Regresar</button>
+{% extends "base.html" %}
+
+
+{% block content %}
+
+<main class="nivel_malestar">
+    <h1>Registrar nivel de malestar</h1>
+    <h4>¿En qué nivel de malestar te encuentras?</h4>
+
+    <div class="nivel-box">
+        <span id="nivel-text">NIVEL 1</span>
+    </div>
+
+    <input type="range" min="1" max="10" value="1"
+           class="slider" id="slider-malestar">
+
+    <script>
+        const slider = document.getElementById("slider-malestar");
+        const texto = document.getElementById("nivel-text");
+
+        slider.oninput = function() {
+            texto.textContent = "NIVEL " + this.value;
+        }
+    </script>
+
+    <div class="botones-navegacion">
+        <a href="{% url 'home' %}" class="btn-regresar">Regresar</a>
         <button class="btn-continuar">Continuar</button>
-        </div>
-        </div>
-    </main>
-</body>
-</html>
+    </div>
+
+</main>
+
+{% endblock %}

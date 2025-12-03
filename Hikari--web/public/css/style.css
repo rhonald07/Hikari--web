@@ -696,6 +696,7 @@ button[type="submit"]:hover {
     background: #2e6e54;
 }
 
+<<<<<<< Updated upstream
 /* Eliminar cuenta (ventana intermitente */
 
 .modal {
@@ -765,3 +766,34 @@ button[type="submit"]:hover {
     cursor: pointer;
     width: 45%;
 }
+=======
+.alert-container {
+    width: 100%;
+    text-align: center;
+    margin-top: 10px;
+}
+
+.alert-message {
+    padding: 12px 18px;
+    border-radius: 8px;
+    width: 90%;
+    max-width: 500px;
+    margin: 10px auto;
+    font-weight: 500;
+    color: white;
+}
+
+.alert-message.error {
+    background-color: #ff5959;
+}
+
+.alert-message.success {
+    background-color: #4caf50;
+}
+
+.alert-message.warning {
+    background-color: #ff9800;
+}
+
+
+>>>>>>> Stashed changes
