@@ -1,5 +1,6 @@
 {% extends "base.html" %}
 
+<<<<<<< Updated upstream
 {% load static %}
 
 {% block content %}
@@ -69,14 +70,27 @@
 
 
     <h1>Bienvenidos a Hikari</h1>
+=======
+
+{% block content %}
+
+<main class="main-content container">
+
+    <h1>Bienvenido/a a Hikari</h1>
+>>>>>>> Stashed changes
     <h4>¿Cómo te sientes hoy?</h4>
     
     {% if usuario_logeado %}
     <section class="crisis-content">
         <h5>Crisis inmediata</h5>
+<<<<<<< Updated upstream
         <p>
             Entra directamente al flujo de crisis para estimar tu malestar y recibir guía paso a paso.
         </p>
+=======
+        <p>Entra directamente al flujo de crisis para estimar tu malestar y recibir guía paso a paso.</p>
+
+>>>>>>> Stashed changes
         <a href="{% url 'crisis' %}">
             <button type="button" class="btn-crisis">Ir a Crisis</button>
         </a>
@@ -84,10 +98,16 @@
 
     <section class="habilidades-content">
         <h5>Habilidades DBT</h5>
+<<<<<<< Updated upstream
         <p>
             Explora y practica habilidades DBT para regular emociones, tolerar el malestar y mejorar tu bienestar.
         </p>
         <a href="{% url 'home' %}">
+=======
+        <p>Explora y practica habilidades DBT para regular emociones, tolerar el malestar y mejorar tu bienestar.</p>
+
+        <a href="#">
+>>>>>>> Stashed changes
             <button type="button" class="btn-habilidades">Ir a Habilidades</button>
         </a>
     </section>
@@ -133,6 +153,10 @@
 
 
 
+<<<<<<< Updated upstream
 </body>
 {% endblock %}
 
+=======
+{% endblock %}
+>>>>>>> Stashed changes

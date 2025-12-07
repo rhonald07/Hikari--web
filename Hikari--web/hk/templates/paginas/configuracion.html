@@ -1,3 +1,4 @@
+<<<<<<< Updated upstream
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -8,12 +9,20 @@
 </head>
 <body>
     <main class="configuracion">
+=======
+{% extends "base.html" %}
+
+
+{% block content %}
+
+<main class="configuracion">
+>>>>>>> Stashed changes
 
     <h1>Configuración</h1>
 
     <section class="config-section">
         <h2>Datos</h2>
-        <a href="datos_personales.html" class="config-item">Datos personales</a>
+        <a href="{% url 'datos_personales' %}" class="config-item">Datos personales</a>
     </section>
 
     <section class="config-section">
@@ -30,11 +39,12 @@
 
     <section class="config-section">
         <h2>Cuenta</h2>
-        <a href="#" class="config-item cerrar-sesion">Cerrar sesión</a>
+        <a href="{% url 'logout' %}" class="config-item cerrar-sesion">Cerrar sesión</a>
     </section>
 
 </main>
 
+<<<<<<< Updated upstream
 <div class="modal" id="modal-eliminar">
             <div class="modal-content">
 
@@ -58,3 +68,6 @@
 <script> src="../public/js/configuracion.js"</script>
 </body>
 </html>
+=======
+{% endblock %}
+>>>>>>> Stashed changes

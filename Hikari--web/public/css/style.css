@@ -799,6 +799,7 @@ button[type="submit"]:hover {
     background: #2e6e54;
 }
 
+<<<<<<< Updated upstream
 
 
 .modal {
@@ -869,6 +870,8 @@ button[type="submit"]:hover {
     width: 45%;
 }
 
+=======
+>>>>>>> Stashed changes
 .alert-container {
     width: 100%;
     text-align: center;
@@ -897,6 +900,7 @@ button[type="submit"]:hover {
     background-color: #ff9800;
 }
 
+<<<<<<< Updated upstream
 .presentacion-container {
     max-width: 1200px;
     margin: 0 auto;
@@ -1187,4 +1191,6 @@ button[type="submit"]:hover {
     font-size: 0.9rem;
     margin: 0;
 }
+=======
+>>>>>>> Stashed changes
 
