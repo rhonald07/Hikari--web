@@ -23,6 +23,64 @@
     margin: 0;
     padding: 0;
     min-height: 100vh;
+<<<<<<< HEAD
+=======
+    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+    background-image: url('../img/fondo-home 2.jpg');
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+}
+
+.fondo-crisis {
+    margin: 0;
+    padding: 0;
+    min-height: 100vh;
+    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+    background-image: url('../img/fondo-home 2.jpg');
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+}
+
+.fondo-ejercicio {
+   margin: 0;
+    padding: 0;
+    min-height: 100vh;
+    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+    background-image: url('../img/fondo-home 2.jpg');
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center; 
+}
+
+.fondo-configuracion {
+    margin: 0;
+    padding: 0;
+    min-height: 100vh;
+    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+    background-image: url('../img/fondo-home 2.jpg');
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+}
+
+.fondo-perfil {
+    margin: 0;
+    padding: 0;
+    min-height: 100vh;
+    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+    background-image: url('../img/fondo-home 2.jpg');
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+}
+
+.fondo-datos_personales {
+    margin: 0;
+    padding: 0;
+    min-height: 100vh;
+>>>>>>> 4e8be882346770093d08163d4bf9b5065753ee36
     font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
     background-image: url('../img/fondo-home 2.jpg');
     background-size: cover;
@@ -453,10 +511,12 @@ button[type="submit"]:hover {
 /*Registra nivel de malestar*/
 .nivel-box {
     width: 100%;
+    height: 45px;
     background: #2ecc71;
-    padding: 10px;
     border-radius: 10px;
-    text-align: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
     margin-bottom: 20px;
     transition: .3s;
 }
@@ -475,43 +535,69 @@ button[type="submit"]:hover {
     margin-bottom: 10px;
 }
 
+.emoji-line span {
+    opacity: 0.4;
+    transition: .3s;
+}
+
+.emoji-line span.activo {
+    opacity: 1;
+    transform: scale(1.3);
+}
+
+
 .slider {
     width: 100%;
     appearance: none;
-    height: 8px;
-    border-radius: 5px;
+    height: 12px;
+    border-radius: 6px;
     background: #d3d3d3;
     outline: none;
-    margin-bottom: 5px;
+    transition: .3s;
+}
+
+.slider::-webkit-slider-thumb {
+    appearance: none;
+    width: 26px;
+    height: 26px;
+    background: #439778;
+    border-radius: 50%;
+    cursor: pointer;
+    transition: .3s;
+}
+
+.slider::-webkit-slider-thumb:hover {
+    background: #2e6e54;
 }
 
 .nivel_malestar {
     max-width: 600px;
-    margin: 60px auto;
-    padding: 20px;
+    margin: 50px auto;
+    padding: 25px;
     background: #ffffff;
     border-radius: 12px;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    position: relative;
 }
 
 .nivel_malestar h1 {
     text-align: center;
+    margin-bottom: 30px;
     color: #333;
-    margin-bottom: 25px;
 }
 
 .nivel-box {
-    width: 96%;
-    background: #2ecc71;
-    padding: 12px;
+    width: 100%;
+    padding: 15px;
     border-radius: 10px;
     text-align: center;
-    margin-bottom: 15px;
-    transition: .3s;
+    margin-bottom: 20px;
+    color: white;
+    transition: background .4s ease;
 }
 
 .nivel-box .nivel-text {
-    font-size: 20px;
+    font-size: 22px;
     font-weight: bold;
     color: #fff;
 }
@@ -520,9 +606,9 @@ button[type="submit"]:hover {
     display: flex;
     justify-content: space-between;
     color: #444;
-    font-size: 24px;
+    font-size: 25px;
     padding: 0 5px;
-    margin-bottom: 10px;
+    margin-bottom: 15px;
 }
 
 .emoji.activo {
@@ -566,9 +652,11 @@ button[type="submit"]:hover {
     border: none;
     padding: 10px 25px;
     border-radius: 20px;
-    font-size: 15px;
+    font-size: 16px;
     cursor: pointer;
     transition: .3s;
+    display: block;
+    margin: 20px auto 0 auto;
 }
 
 .btn-continuar:hover {
@@ -576,18 +664,21 @@ button[type="submit"]:hover {
 }
 
 .btn-regresar {
+    position: absolute;
+    top: 15px;
+    left: 15px;
     background: transparent;
-    color: #439778;
-    border: 2px solid #439778;
-    padding: 10px 20px;
-    border-radius: 20px;
-    font-size: 15px;
+    border: none;
+    font-size: 30px;
     cursor: pointer;
-    transition: 0.3s;
+    color: #439778;
+    transition: 0.2s;
 }
 
-.btn-regresar:hover {
-    background: #e6f4ef;
+.btn-home:hover { color: #2e6e54; }
+.emoji.activo {
+    opacity: 1;
+    transform: scale(1.3);
 }
 
 /* Perfil */
@@ -799,8 +890,12 @@ button[type="submit"]:hover {
     background: #2e6e54;
 }
 
+<<<<<<< HEAD
 <<<<<<< Updated upstream
 
+=======
+/* Eliminar cuenta (ventana intermitente */
+>>>>>>> 4e8be882346770093d08163d4bf9b5065753ee36
 
 .modal {
     position: fixed;
@@ -870,8 +965,11 @@ button[type="submit"]:hover {
     width: 45%;
 }
 
+<<<<<<< HEAD
 =======
 >>>>>>> Stashed changes
+=======
+>>>>>>> 4e8be882346770093d08163d4bf9b5065753ee36
 .alert-container {
     width: 100%;
     text-align: center;
@@ -911,6 +1009,7 @@ button[type="submit"]:hover {
     gap: 60px;
 }
 
+<<<<<<< HEAD
 
 .mockup-wrapper {
     flex: 1;
@@ -1067,10 +1166,48 @@ button[type="submit"]:hover {
 /* Lista del menú */
 .navbar ul {
     width: 100%;
+=======
+/* Habilidad/Ejercicios en crisis */
+
+.ejercicio-container {
+    max-width: 600px;
+    margin: 60px auto;
+    padding: 25px;
+    background: #ffffff;
+    border-radius: 14px;
+    box-shadow: 0px 4px 12px rgba(0,0,0,0.1);
+    position: relative;
+}
+
+
+.btn-back {
+    position: absolute;
+    top: 15px;
+    left: 15px;
+    background: transparent;
+    border: none;
+    font-size: 28px;
+    cursor: pointer;
+}
+
+.btn-home {
+    position: absolute;
+    top: 15px;
+    right: 15px;
+    background: transparent;
+    border: none;
+    font-size: 28px;
+    cursor: pointer;
+}
+
+
+.pasos-lista {
+>>>>>>> 4e8be882346770093d08163d4bf9b5065753ee36
     list-style: none;
     padding-left: 0;
 }
 
+<<<<<<< HEAD
 .navbar li {
     width: 100%;
     text-align: center;
@@ -1194,3 +1331,21 @@ button[type="submit"]:hover {
 =======
 >>>>>>> Stashed changes
 
+=======
+.pasos-lista li {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    background: #f5f5f5;
+    padding: 12px;
+    border-radius: 10px;
+    margin-bottom: 10px;
+    font-size: 16px;
+}
+
+.checkbox-paso {
+    width: 22px;
+    height: 22px;
+}
+
+>>>>>>> 4e8be882346770093d08163d4bf9b5065753ee36
