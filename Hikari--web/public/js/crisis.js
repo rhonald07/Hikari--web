@@ -36,3 +36,6 @@ btnHome.addEventListener("click", () => {
 btnContinuar.addEventListener("click", () => {
     alert("Aquí va el flujo siguiente según el nivel 🙂");
 });
+
+localStorage.setItem("nivelMalestar", nivelActual);
+window.location.href = "ejercicio.html";
