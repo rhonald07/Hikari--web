@@ -28,7 +28,12 @@ def validar_password_fuerte(password):
 # HOME
 # ==========================================================
 def home_view(request):
-    return render(request, "paginas/home.html")
+    usuario_logeado = "usuario_id" in request.session
+
+    return render(request, "paginas/home.html", {
+        "usuario_logeado": usuario_logeado
+    })
+
 
 
 # ==========================================================
@@ -60,7 +65,7 @@ def login_view(request):
         # Guardar sesión usando id_usuario
         request.session["usuario_id"] = usuario.id_usuario
 
-        return redirect("perfil")
+        return redirect("home")
 
     return render(request, "paginas/login.html")
 
@@ -195,4 +200,4 @@ def crisis_view(request):
 # ----------------------------------------
 def logout_view(request):
     request.session.flush()
-    return redirect("login")
+    return redirect("home")

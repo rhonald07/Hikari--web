@@ -1,46 +1,83 @@
-<!DOCTYPE html>
-<html lang="es">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Hikari - Inicio</title>
-    <link rel="stylesheet" href="../../../public/css/style.css">
-</head>
+{% extends "base.html" %}
 
+{% load static %}
+
+{% block content %}
 <body class="fondo-home">
 
 <header class="header">
     <div class="menu container">
-        <a href="#" class="logo"><img src="../../../public/img/logo-alt-light-transparent.png" class="logo"></a>
+        <a href="home.html" class="logo"><img src="{% static 'imagenes/logo-alt-light-transparent.png' %}" class="logo"></a>
 
         <input type="checkbox" id="menu">
         <label for="menu">
-            <img src="../../../public/img/menu.png" class="menu-icono" alt="Menú">
+            <img src="{% static 'imagenes/menu.png' %}" class="menu-icono" alt="Menú">
         </label>
 
         <nav class="navbar">
+                <div class="nav-logo">
+                    <img src="{% static 'imagenes/logo-alt-dark-transparent.png' %}" alt="Hikari">
+                </div>
             <ul>
-                <li><a href="home.html">Inicio</a></li>
-                <li><a href="crisis.html">Crisis</a></li>
-                <li><a href="habilidades.html">Habilidades</a></li>
-                <li><a href="perfil.html">Perfil</a></li>
+                {% if not request.session.usuario_id %}
+                <li><a href="{% url 'login' %}">Iniciar sesion</a></li>
+                <li><a href="{% url 'registro' %}">Registrarse</a></li>
+                {% endif %}
+                <li><a href="{% url 'crisis' %}">Crisis</a></li>
+                <li><a href="{% url 'home' %}">Habilidades</a></li>
+                <li><a href="{% url 'perfil' %}">Perfil</a></li>
+                {% if request.session.usuario_id %}
+                <li><a href="{% url 'logout' %}">Cerrar sesión</a></li>
+                {% endif %}
             </ul>
         </nav>
         <div class="overlay" id="overlay"></div>
     </div>
 </header>
+<section class="hero-hikari">
+    <div class="hero-blur-layer"></div>
+
+    <div class="hero-inner">
+
+    <!-- MOCKUP A LA IZQUIERDA -->
+    <div class="mockup-wrapper">
+        <div class="mockup">
+            <img src="{% static 'imagenes/mockup.png' %}" class="mockup-img" alt="Mockup Hikari">
+            <img src="{% static 'imagenes/hikari.gif' %}" class="mockup-video"></img>
+        </div>
+    </div>
+
+    <!-- TEXTO A LA DERECHA -->
+    <div class="texto-presentacion">
+        <h1 class="titulo-hikari">HIKARI</h1>
+        <p class="subtitulo-hikari">Luz y esperanza</p>
+
+        <p class="descripcion-hikari">
+            Una herramienta diseñada para acompañarte en los momentos más difíciles,
+            ayudándote a regular tus emociones con apoyo guiado y basado en habilidades DBT.
+        </p>
+    </div>
+
+</div>
+</section>
+
+
+
 
 <main class="main-content container">
 
+
+
     <h1>Bienvenidos a Hikari</h1>
     <h4>¿Cómo te sientes hoy?</h4>
-
+    
+    {% if usuario_logeado %}
     <section class="crisis-content">
         <h5>Crisis inmediata</h5>
         <p>
             Entra directamente al flujo de crisis para estimar tu malestar y recibir guía paso a paso.
         </p>
-        <a href="crisis.html">
+        <a href="{% url 'crisis' %}">
             <button type="button" class="btn-crisis">Ir a Crisis</button>
         </a>
     </section>
@@ -50,13 +87,52 @@
         <p>
             Explora y practica habilidades DBT para regular emociones, tolerar el malestar y mejorar tu bienestar.
         </p>
-        <a href="habilidades.html">
+        <a href="{% url 'home' %}">
             <button type="button" class="btn-habilidades">Ir a Habilidades</button>
         </a>
     </section>
 
+    {% endif %}
 </main>
-<script src="../../../public/js/home.js"></script>
+<script src="{% static 'js/home.js' %}"></script>
+
+<footer class="footer">
+
+    <div class="footer-container">
+
+        <div class="footer-row">
+
+            <!-- IZQUIERDA -->
+            <div class="footer-left">
+                <img src="{% static 'imagenes/logo-light-transparent.png' %}" 
+                    alt="Hikari" class="footer-logo">
+            </div>
+
+            <!-- CENTRO -->
+            <div class="footer-center">
+                <a href="{% url 'home' %}">Inicio</a>
+                <a href="{% url 'crisis' %}">Crisis</a>
+                <a href="{% url 'perfil' %}">Perfil</a>
+            </div>
+
+            <!-- DERECHA -->
+            <div class="footer-right">
+                <p>Creado por Ibañez</p>
+            </div>
+
+        </div>
+
+    </div>
+
+    <!-- BANDA INFERIOR -->
+    <div class="footer-bottom">
+        <p>© 2025 Hikari — Luz y Esperanza</p>
+    </div>
+
+</footer>
+
+
 
 </body>
-</html>
+{% endblock %}
+
