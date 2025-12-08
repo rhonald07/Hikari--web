@@ -28,16 +28,13 @@ def validar_password_fuerte(password):
 # HOME
 # ==========================================================
 def home_view(request):
-<<<<<<< Updated upstream
     usuario_logeado = "usuario_id" in request.session
 
     return render(request, "paginas/home.html", {
         "usuario_logeado": usuario_logeado
     })
 
-=======
-    return render(request, "paginas/home.html")
->>>>>>> Stashed changes
+
 
 
 # ==========================================================
@@ -69,11 +66,7 @@ def login_view(request):
         # Guardar sesión usando id_usuario
         request.session["usuario_id"] = usuario.id_usuario
 
-<<<<<<< Updated upstream
         return redirect("home")
-=======
-        return redirect("perfil")
->>>>>>> Stashed changes
 
     return render(request, "paginas/login.html")
 
@@ -177,7 +170,7 @@ def datos_personales_view(request):
     if "usuario_id" not in request.session:
         return redirect("login")
 
-    usuario = Usuario.objects.get(id=request.session["usuario_id"])
+    usuario = Usuario.objects.get(id_usuario=request.session["usuario_id"])
 
     if request.method == "POST":
 
@@ -195,6 +188,7 @@ def datos_personales_view(request):
 
 
 
+
 # ----------------------------------------
 # CRISIS — vista simple por ahora
 # ----------------------------------------
@@ -208,8 +202,10 @@ def crisis_view(request):
 # ----------------------------------------
 def logout_view(request):
     request.session.flush()
-<<<<<<< Updated upstream
     return redirect("home")
-=======
-    return redirect("login")
->>>>>>> Stashed changes
+
+def error404_view(request):
+    return render(request, "paginas/error404.html")
+
+def error500_view(request):
+    return render(request, "paginas/error500.html")

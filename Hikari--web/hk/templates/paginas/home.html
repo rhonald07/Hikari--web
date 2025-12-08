@@ -1,6 +1,5 @@
 {% extends "base.html" %}
 
-<<<<<<< Updated upstream
 {% load static %}
 
 {% block content %}
@@ -63,34 +62,21 @@
 </section>
 
 
-
-
-<main class="main-content container">
-
-
-
-    <h1>Bienvenidos a Hikari</h1>
-=======
-
-{% block content %}
-
 <main class="main-content container">
 
     <h1>Bienvenido/a a Hikari</h1>
->>>>>>> Stashed changes
+
     <h4>¿Cómo te sientes hoy?</h4>
     
     {% if usuario_logeado %}
     <section class="crisis-content">
         <h5>Crisis inmediata</h5>
-<<<<<<< Updated upstream
+
         <p>
             Entra directamente al flujo de crisis para estimar tu malestar y recibir guía paso a paso.
         </p>
-=======
-        <p>Entra directamente al flujo de crisis para estimar tu malestar y recibir guía paso a paso.</p>
 
->>>>>>> Stashed changes
+
         <a href="{% url 'crisis' %}">
             <button type="button" class="btn-crisis">Ir a Crisis</button>
         </a>
@@ -98,23 +84,18 @@
 
     <section class="habilidades-content">
         <h5>Habilidades DBT</h5>
-<<<<<<< Updated upstream
+
         <p>
             Explora y practica habilidades DBT para regular emociones, tolerar el malestar y mejorar tu bienestar.
         </p>
         <a href="{% url 'home' %}">
-=======
-        <p>Explora y practica habilidades DBT para regular emociones, tolerar el malestar y mejorar tu bienestar.</p>
-
-        <a href="#">
->>>>>>> Stashed changes
             <button type="button" class="btn-habilidades">Ir a Habilidades</button>
         </a>
     </section>
 
     {% endif %}
 </main>
-<script src="{% static 'js/home.js' %}"></script>
+
 
 <footer class="footer">
 
@@ -125,19 +106,28 @@
             <!-- IZQUIERDA -->
             <div class="footer-left">
                 <img src="{% static 'imagenes/logo-light-transparent.png' %}" 
-                    alt="Hikari" class="footer-logo">
+                     alt="Hikari" class="footer-logo">
             </div>
 
-            <!-- CENTRO -->
+            <!-- CENTRO: Links -->
             <div class="footer-center">
                 <a href="{% url 'home' %}">Inicio</a>
                 <a href="{% url 'crisis' %}">Crisis</a>
                 <a href="{% url 'perfil' %}">Perfil</a>
+                <a href="{% url 'error404' %}">Error 404</a>
+                <a href="{% url 'error500' %}">Error 500</a>
             </div>
 
-            <!-- DERECHA -->
+            <!-- DERECHA: Redes Sociales -->
             <div class="footer-right">
-                <p>Creado por Ibañez</p>
+                <p>Creado por SCRUM 1</p>
+
+                <div class="footer-socials">
+                    <a href="https://www.instagram.com/trascender_ips/" class="social-icon" target="_blank"><i class="fa-brands fa-instagram"></i></a>
+                    <a href="https://www.facebook.com/cptrascender/" class="social-icon" target="_blank"><i class="fa-brands fa-facebook"></i></a>
+                    <a href="https://www.linkedin.com/company/trascender-centro-psicol-gico/?originalSubdomain=co" class="social-icon" target="_blank"><i class="fa-brands fa-linkedin"></i></a>
+                    <a href="https://cptrascender.com/nosotros/" class="social-icon" target="_blank"><i class="fa-brands fa-chrome"></i></a>
+                </div>
             </div>
 
         </div>
@@ -152,11 +142,11 @@
 </footer>
 
 
+<script src="{% static 'js/home.js' %}"></script>
 
-<<<<<<< Updated upstream
+
 </body>
 {% endblock %}
 
-=======
-{% endblock %}
->>>>>>> Stashed changes
+
+

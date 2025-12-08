@@ -1,39 +1,12 @@
 {% extends "base.html" %}
 
-<<<<<<< Updated upstream
 {% load static %}
 
 {% block content %}
 <body class="fondo-login">
-<div class="logo-container">
-    <img src="{% static 'imagenes/logo-icon-light-transparent.png' %}" alt="Hikari" class="logo-login">
-</div>
-    <div class="formulario">
-        <h1 class="text-center mt-3">Inicio de sesión</h1>
-
-        <!-- Mensajes de error / éxito Django -->
-    {% if messages %}
-        <div class="mensajes">
-            {% for message in messages %}
-                <p class="msg {{ message.tags }}">{{ message }}</p>
-            {% endfor %}
-        </div>
-    {% endif %}
-
-        <form method="post" action="{% url 'login' %}">
-            {% csrf_token %}
-
-            <div class="username">
-                <input type="text" id="email" name="username" required>
-                <label for="username">Nombre de usuario</label>
-            </div>
-=======
-
-{% block content %}
 
 <div class="formulario">
-    <h1 class="text-center mt-3">Inicio de sesión</h1>
->>>>>>> Stashed changes
+    <h1 class="texto-centrado-login">Inicio de sesión</h1>
 
     {% if messages %}
 <div class="mensajes">
@@ -43,28 +16,16 @@
 </div>
 {% endif %}
 
-<<<<<<< Updated upstream
-            <p class="error" id="error-pass"></p>
-=======
->>>>>>> Stashed changes
 
     <form method="post">
         {% csrf_token %}
 
-<<<<<<< Updated upstream
-            <button type="submit" id="btn-login">Entrar</button>
-
-            <div class="registrarse">
-                ¿No tienes cuenta? <a href="{% url 'registro' %}">Registrarme</a>
-            </div>
-=======
         <!-- Campo email -->
         <div class="username">
             <input type="email" id="email" name="username" placeholder="Correo">
 
             <label for="email">Correo electrónico</label>
         </div>
->>>>>>> Stashed changes
 
         <!-- Campo contraseña -->
         <div class="username">
@@ -81,6 +42,11 @@
         </ul>
         {% endif %}
 
+        <div class="forgot-password">
+            <a href="#">¿Olvidaste tu contraseña?</a>
+        </div>
+
+
         <button type="submit">Entrar</button>
     </form>
 
@@ -89,12 +55,5 @@
         <a href="{% url 'registro' %}">Registrarme</a>
     </div>
 </div>
-
-<<<<<<< Updated upstream
-    <script src="../../../public/js/login.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js" integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI" crossorigin="anonymous"></script>
+</body>
 {% endblock %}
-
-=======
-{% endblock %}
->>>>>>> Stashed changes

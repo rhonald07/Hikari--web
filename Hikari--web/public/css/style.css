@@ -23,8 +23,6 @@
     margin: 0;
     padding: 0;
     min-height: 100vh;
-<<<<<<< HEAD
-=======
     font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
     background-image: url('../img/fondo-home 2.jpg');
     background-size: cover;
@@ -44,7 +42,7 @@
 }
 
 .fondo-ejercicio {
-   margin: 0;
+    margin: 0;
     padding: 0;
     min-height: 100vh;
     font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
@@ -80,7 +78,6 @@
     margin: 0;
     padding: 0;
     min-height: 100vh;
->>>>>>> 4e8be882346770093d08163d4bf9b5065753ee36
     font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
     background-image: url('../img/fondo-home 2.jpg');
     background-size: cover;
@@ -91,7 +88,7 @@
 /* Contenedor del login */
 .formulario {
     width: 450px;
-    height: 450px;
+    height: 400px;
     margin: auto;
     position: relative;
     top: 170px;
@@ -890,47 +887,102 @@ button[type="submit"]:hover {
     background: #2e6e54;
 }
 
-<<<<<<< HEAD
-<<<<<<< Updated upstream
-
-=======
 /* Eliminar cuenta (ventana intermitente */
->>>>>>> 4e8be882346770093d08163d4bf9b5065753ee36
 
+/* ==== FONDO BORROSO DEL MODAL ==== */
 .modal {
     position: fixed;
     top: 0;
     left: 0;
     width: 100%;
-    height: 50%;
-    background: rgba(0, 0, 0, 0.45);
-    display: none;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.45); /* oscurece */
+    backdrop-filter: blur(6px);       /* difumina */
+    display: none;                    /* se activa con JS */
     justify-content: center;
-    align-items: cneter;
-    z-index: 1000;
+    align-items: center;
+    z-index: 9999;
 }
 
+/* ==== CONTENIDO DEL MODAL ==== */
 .modal-content {
     background: #ffffff;
-    padding: 25px;
-    width: 85%;
-    max-width: 420px;
-    border-radius: 15px;
+    width: 90%;
+    max-width: 500px;
+    padding: 30px;
+    border-radius: 16px;
+    box-shadow: 0 8px 20px rgba(0,0,0,0.2);
     text-align: center;
-    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
+    animation: fadeIn 0.25s ease-out;
 }
 
+/* Animación suave */
+@keyframes fadeIn {
+    from { opacity: 0; transform: scale(0.95); }
+    to { opacity: 1; transform: scale(1); }
+}
+
+/* ==== TEXTOS ==== */
 .modal-content h2 {
-    margin-bottom: 15px;
-    font-size: 22px;
     color: #333;
+    font-size: 22px;
+    margin-bottom: 10px;
 }
 
 .modal-content p {
-    color: #555;
+    color: #444;
+    font-size: 16px;
     margin-bottom: 20px;
-    font-size: 15px;
 }
+
+/* CHECKBOX */
+.checkbox-group {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin: 15px 0 25px;
+}
+
+/* ==== BOTONES ==== */
+.modal-buttons {
+    display: flex;
+    justify-content: space-between;
+    gap: 15px;
+}
+
+.btn-cancelar-modal {
+    flex: 1;
+    padding: 12px;
+    border-radius: 30px;
+    background: #e8f5e9;
+    border: 2px solid #4CAF50;
+    color: #4CAF50;
+    cursor: pointer;
+    font-size: 15px;
+    transition: 0.3s;
+}
+
+.btn-cancelar-modal:hover {
+    background: #4CAF50;
+    color: #fff;
+}
+
+.btn-eliminar-modal {
+    flex: 1;
+    padding: 12px;
+    border-radius: 30px;
+    background: #e53935;
+    border: none;
+    color: #fff;
+    cursor: pointer;
+    font-size: 15px;
+    transition: 0.3s;
+}
+
+.btn-eliminar-modal:hover {
+    background: #c62828;
+}
+
 
 .checkbox-group {
     display: flex;
@@ -940,36 +992,7 @@ button[type="submit"]:hover {
     margin-bottom: 25px;
 }
 
-.modal-buttons {
-    display: flex;
-    justify-content: space-between;
-}
 
-.btn-cancelar-modal {
-    background: transparent;
-    border: 2px solid #439778;
-    color: #439778;
-    padding: 10px 18px;
-    border-radius: 20px;
-    cursor: pointer;
-    width: 45%;
-}
-
-.btn-eliminar-modal {
-    background: #c0392b;
-    border: none;
-    color: white;
-    padding: 10px 18px;
-    border-radius: 20px;
-    cursor: pointer;
-    width: 45%;
-}
-
-<<<<<<< HEAD
-=======
->>>>>>> Stashed changes
-=======
->>>>>>> 4e8be882346770093d08163d4bf9b5065753ee36
 .alert-container {
     width: 100%;
     text-align: center;
@@ -998,7 +1021,7 @@ button[type="submit"]:hover {
     background-color: #ff9800;
 }
 
-<<<<<<< Updated upstream
+
 .presentacion-container {
     max-width: 1200px;
     margin: 0 auto;
@@ -1009,7 +1032,6 @@ button[type="submit"]:hover {
     gap: 60px;
 }
 
-<<<<<<< HEAD
 
 .mockup-wrapper {
     flex: 1;
@@ -1166,7 +1188,7 @@ button[type="submit"]:hover {
 /* Lista del menú */
 .navbar ul {
     width: 100%;
-=======
+}
 /* Habilidad/Ejercicios en crisis */
 
 .ejercicio-container {
@@ -1202,12 +1224,10 @@ button[type="submit"]:hover {
 
 
 .pasos-lista {
->>>>>>> 4e8be882346770093d08163d4bf9b5065753ee36
     list-style: none;
     padding-left: 0;
 }
 
-<<<<<<< HEAD
 .navbar li {
     width: 100%;
     text-align: center;
@@ -1264,74 +1284,98 @@ button[type="submit"]:hover {
     opacity: 1;
     pointer-events: all;
 }
+/* ===========================
+   FOOTER GENERAL
+   =========================== */
 
-/* ============================
-   FOOTER SUPERIOR 
-   ============================ */
 .footer {
-    background: #0d3b34; /* color del footer general */
-    color: #fff;
-    padding: 30px 0 10px 0;
-    margin-top: 40px;
-    font-size: 14px;
+    background: #063A36;
+    color: #d9f3eb;
+    padding-top: 40px;
+    font-family: 'Poppins', sans-serif;
 }
 
 .footer-container {
     max-width: 1200px;
     margin: auto;
-    padding: 0 30px;
+    padding: 0 20px;
 }
 
 .footer-row {
-    display: flex;
-    justify-content: space-between;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr; /* 3 columnas del mismo tamaño */
     align-items: center;
-    flex-wrap: wrap;
+    text-align: center;
+    padding-bottom: 20px;
 }
 
-.footer-logo {
-    width: 150px;
+/* ---------- IZQUIERDA ---------- */
+.footer-left .footer-logo {
+    margin-right: 300px;
+    width: 120px;
     opacity: 0.9;
+}
+
+/* ---------- CENTRO (links) ---------- */
+.footer-center {
+    display: flex;
+    justify-content: center;
+    gap: 25px;
 }
 
 .footer-center a {
-    color: #fff;
-    margin: 0 12px;
+    color: #c8e9df;
     text-decoration: none;
-    font-weight: 500;
+    font-size: 15px;
+    transition: 0.3s ease;
 }
 
 .footer-center a:hover {
-    text-decoration: underline;
+    color: #8ff5cf;
+    transform: translateY(-2px);
 }
 
+/* ---------- DERECHA ---------- */
 .footer-right {
-    opacity: 0.9;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    gap: 10px;
 }
 
-
-/* ============================
-   FOOTER INFERIOR (DERECHOS)
-   ============================ */
-
-.footer {
-    background: #06322f;
-    padding: 40px 0 0 0;
-    margin: 0;
+.footer-right p {
+    margin-bottom: 10px;
+    opacity: 0.8;
 }
 
+/* Redes sociales */
+.footer-socials {
+    display: flex;
+    gap: 10px;
+}
+
+.footer-socials .social-icon {
+    font-size: 24px;
+    color: #d9f3eb;
+    transition: 0.3s ease;
+}
+
+.footer-socials .social-icon:hover {
+    color: #8ff5cf;
+    transform: scale(1.2);
+}
+
+/* ---------- BANDA INFERIOR ---------- */
 .footer-bottom {
-    background: #052926;
+    background: #02332f;
     text-align: center;
-    padding: 15px 0;
-    color: white;
-    font-size: 0.9rem;
-    margin: 0;
+    padding: 10px 0;
+    margin-top: 20px;
+    border-top: 1px solid rgba(255, 255, 255, 0.15);
+    color: #b1d7cf;
 }
-=======
->>>>>>> Stashed changes
 
-=======
+
 .pasos-lista li {
     display: flex;
     align-items: center;
@@ -1348,4 +1392,58 @@ button[type="submit"]:hover {
     height: 22px;
 }
 
->>>>>>> 4e8be882346770093d08163d4bf9b5065753ee36
+.errores {
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-image: url('../img/fondo.png');
+    background-color: #24a374;
+    line-height: 1.6;
+}
+
+.error {
+    font-family: 'Poppins', sans-serif;
+    display: flex;
+    flex-direction: column; 
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    gap: 15px;
+}
+
+.h1-error {
+    font-size: 3rem;
+    color: rgb(255, 255, 255);
+}
+
+.p-error {
+    font-size: 1.1rem;
+    color: rgb(255, 255, 255);
+}
+
+.a-error {
+    font-size: 1.2rem;
+    color: rgb(255, 255, 255);
+}
+
+.texto-centrado-login {
+    text-align: center;
+    font-family: 'Poppins', sans-serif;
+    font-weight: 600;
+    font-size: 30px;
+}
+
+.forgot-password {
+    text-align: center;
+    margin-bottom: 15px;
+}
+
+.forgot-password a {
+    color: #2b8f76;
+    text-decoration: none;
+    font-size: 14px;
+}
+
+.forgot-password a:hover {
+    text-decoration: underline;
+}
+

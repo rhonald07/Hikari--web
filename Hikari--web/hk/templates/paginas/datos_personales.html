@@ -1,20 +1,9 @@
-<<<<<<< HEAD
-<!DOCTYPE html>
-<html lang="es">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Hikari - Datos personales</title>
-    <link rel="stylesheet" href="../../../public/css/style.css">
-</head>
-<body class="fondo-datos_personales">
-    <main class="datos-personales">
-=======
 {% extends "base.html" %}
->>>>>>> 375b8fa53aeb9928b76fd0adc96a6a06ef310970
 
+{% load static %}
 
 {% block content %}
+<body class="fondo-configuracion">
 
 <main class="datos-personales">
     <h1>Datos personales</h1>
@@ -24,10 +13,10 @@
         {{ form.as_p }}
 
         <div class="botones-editar">
-            <a href="{% url 'perfil' %}" class="btn-cancelar">Cancelar</a>
+            <a href="{% url 'configuracion' %}" class="btn-cancelar">Cancelar</a>
             <button type="submit" class="btn-guardar">Guardar cambios</button>
         </div>
     </form>
 </main>
-
+</body>
 {% endblock %}
