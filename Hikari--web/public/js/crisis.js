@@ -4,6 +4,8 @@ const nivelBox = document.getElementById("nivelBox");
 const emojiList = document.querySelectorAll("#emojiLine .emoji");
 const btnHome = document.getElementById("btnHome");
 const btnContinuar = document.getElementById("btnContinuar");
+const emojiLine = document.getElementById("emojiLine");
+const emojis = document.querySelectorAll(".emoji");
 
 let nivelActual = 1;
 /* COLORES DEL NIVEL */
@@ -31,3 +33,21 @@ btnContinuar.addEventListener("click", () => {
 
 localStorage.setItem("nivelMalestar", nivelActual);
 window.location.href = "ejercicio.html";
+
+function corregirThumb() {
+    const index = slider.value - 1;
+
+    const emojiWidth = emojis[0].offsetWidth;
+    const lineWidth = emojiLine.offsetWidth;
+
+    const espacioEntreEmojis = lineWidth / 9; // 10 emojis → 9 espacios
+
+    const posicionEmoji = index * espacioEntreEmojis + emojiWidth / 2;
+
+    slider.style.setProperty("--thumb-position", posicionEmoji + "px");
+}
+
+slider.addEventListener("input", corregirThumb);
+window.addEventListener("resize", corregirThumb);
+
+corregirThumb();

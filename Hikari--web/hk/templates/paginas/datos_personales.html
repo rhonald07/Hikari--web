@@ -1,33 +1,189 @@
-<<<<<<< HEAD
-<!DOCTYPE html>
-<html lang="es">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Hikari - Datos personales</title>
-    <link rel="stylesheet" href="../../../public/css/style.css">
-</head>
-<body class="fondo-datos_personales">
-    <main class="datos-personales">
-=======
 {% extends "base.html" %}
->>>>>>> 375b8fa53aeb9928b76fd0adc96a6a06ef310970
-
-
+{% load static %}
 {% block content %}
+
+<body class="fondo-configuracion">
+
+<header class="header">
+    <div class="menu container">
+        <a href="{% url 'home' %}" class="logo"><img src="{% static 'imagenes/logo-alt-light-transparent.png' %}" class="logo"></a>
+
+        <input type="checkbox" id="menu">
+        <label for="menu">
+            <img src="{% static 'imagenes/menu.png' %}" class="menu-icono" alt="Menú">
+        </label>
+
+        <nav class="navbar">
+            <div class="nav-logo">
+                <img src="{% static 'imagenes/logo-alt-dark-transparent.png' %}" alt="Hikari">
+            </div>
+            <ul>
+                {% if not request.session.usuario_id %}
+                <li><a href="{% url 'login' %}">Iniciar sesion</a></li>
+                <li><a href="{% url 'registro' %}">Registrarse</a></li>
+                {% endif %}
+                <li><a href="{% url 'crisis' %}">Crisis</a></li>
+                <li><a href="{% url 'home' %}">Habilidades</a></li>
+                <li><a href="{% url 'perfil' %}">Perfil</a></li>
+                {% if request.session.usuario_id %}
+                <li><a href="{% url 'logout' %}">Cerrar sesión</a></li>
+                {% endif %}
+            </ul>
+        </nav>
+        <div class="overlay" id="overlay"></div>
+    </div>
+</header>
 
 <main class="datos-personales">
     <h1>Datos personales</h1>
 
-    <form method="post">
-        {% csrf_token %}
-        {{ form.as_p }}
+    <div class="datos-container">
 
-        <div class="botones-editar">
-            <a href="{% url 'perfil' %}" class="btn-cancelar">Cancelar</a>
-            <button type="submit" class="btn-guardar">Guardar cambios</button>
-        </div>
-    </form>
+        <!-- ✨ FORMULARIO DE USUARIO -->
+        <form method="POST">
+            {% csrf_token %}
+            <input type="hidden" name="form_type" value="usuario">
+
+            <div class="form-group">
+                <input type="text" name="nombres" value="{{ usuario.nombre_usuario }}">
+                <label>Nombres</label>
+            </div>
+
+            <div class="form-group">
+                <input type="text" name="apellidos" value="{{ usuario.apellido_usuario }}">
+                <label>Apellidos</label>
+            </div>
+
+            <div class="form-group">
+                <input type="text" name="alias" value="{{ usuario.alias }}">
+                <label>¿Cómo quieres que te llamemos?</label>
+            </div>
+
+            <div class="form-group">
+                <input type="email" name="correo" value="{{ usuario.email_usuario }}">
+                <label>Correo electrónico</label>
+            </div>
+
+            <div class="form-group">
+                <input type="text" name="telefono" value="{{ usuario.telefono_usuario }}">
+                <label>Teléfono</label>
+            </div>
+
+            <hr>
+
+            <h3>Información de la cuenta</h3>
+            <div class="form-info">
+                <p><strong>Fecha de creación:</strong> {{ usuario.fecha_creacion }}</p>
+            </div>
+
+        </form>
+
+        <hr>
+        <h3>Contactos de emergencia</h3>
+
+        <form method="POST">
+            {% csrf_token %}
+            <input type="hidden" name="form_type" value="contactos">
+
+            <!-- FORMULARIO PARA AGREGAR NUEVO CONTACTO -->
+            <div class="form-group">
+                <input type="text" name="nuevo_nombre" placeholder="Nombre del contacto">
+            </div>
+
+            <div class="form-group">
+                <input type="text" name="nuevo_numero" placeholder="Número">
+            </div>
+
+            <div class="form-group">
+                <select name="nuevo_prioridad">
+                    <option value="alta">Prioridad alta</option>
+                    <option value="media">Prioridad media</option>
+                    <option value="baja">Prioridad baja</option>
+                </select>
+            </div>
+
+            <button type="submit"
+                    name="accion"
+                    value="agregar_contacto"
+                    class="btn-agregar-contacto">
+                Agregar contacto
+            </button>
+
+            <hr>
+
+            <!-- LISTA DE CONTACTOS EXISTENTES -->
+            {% for contacto in contactos %}
+                <div class="contacto-item">
+
+                    <div class="form-group">
+                        <input type="text"
+                               name="nombre_{{ contacto.id }}"
+                               value="{{ contacto.nombre }}">
+                    </div>
+
+                    <div class="form-group">
+                        <input type="text"
+                               name="numero_{{ contacto.id }}"
+                               value="{{ contacto.numero }}">
+                    </div>
+
+                    <div class="form-group">
+                        <select name="prioridad_{{ contacto.id }}">
+                            <option value="alta" {% if contacto.prioridad == 'alta' %}selected{% endif %}>Alta</option>
+                            <option value="media" {% if contacto.prioridad == 'media' %}selected{% endif %}>Media</option>
+                            <option value="baja" {% if contacto.prioridad == 'baja' %}selected{% endif %}>Baja</option>
+                        </select>
+                    </div>
+
+                    <a href="{% url 'eliminar_contacto' contacto.id %}" class="btn-eliminar">Eliminar</a>
+                </div>
+            {% endfor %}
+
+            <div class="botones-editar">
+                <a href="{% url 'configuracion' %}" class="btn-cancelar">Cancelar</a>
+                <button type="submit" class="btn-guardar">Guardar cambios</button>
+            </div>
+
+        </form>
+
+    </div>
+
 </main>
+
+<!-- 🔔 TOAST NOTIFICATION -->
+{% if messages %}
+<div id="toast" class="toast">
+    {% for mensaje in messages %}
+        {{ mensaje }}
+    {% endfor %}
+</div>
+
+<script>
+    setTimeout(() => {
+        const toast = document.getElementById("toast");
+        if (toast) toast.style.opacity = "0";
+    }, 3000);
+</script>
+
+<style>
+.toast {
+    position: fixed;
+    top: 25px;
+    right: 25px;
+    background: #4CAF50;
+    color: white;
+    padding: 15px 25px;
+    border-radius: 10px;
+    font-size: 16px;
+    font-weight: 600;
+    z-index: 9999;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.15);
+    transition: opacity .5s ease;
+}
+</style>
+{% endif %}
+
+<script src="{% static 'js/home.js' %}"></script>
+</body>
 
 {% endblock %}

@@ -42,7 +42,8 @@
 }
 
 .fondo-ejercicio {
-    width: 100%;
+    margin: 0;
+    padding: 0;
     min-height: 100vh;
     background-image: url('../img/fondo-home 2.jpg');
     background-size: cover;
@@ -102,7 +103,7 @@
 /* Contenedor del login */
 .formulario {
     width: 450px;
-    height: 450px;
+    height: 400px;
     margin: auto;
     position: relative;
     top: 170px;
@@ -246,6 +247,8 @@ button[type="submit"]:hover {
     padding: 20px 40px;
     border-radius: 12px;
     box-sizing: border-box;
+    margin-top: 30px;
+    margin-bottom: 30px;
 }
 
 .registro h1 {
@@ -901,45 +904,102 @@ button[type="submit"]:hover {
     background: #2e6e54;
 }
 
-
-
 /* Eliminar cuenta (ventana intermitente */
 
-
+/* ==== FONDO BORROSO DEL MODAL ==== */
 .modal {
     position: fixed;
     top: 0;
     left: 0;
     width: 100%;
-    height: 50%;
-    background: rgba(0, 0, 0, 0.45);
-    display: none;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.45); /* oscurece */
+    backdrop-filter: blur(6px);       /* difumina */
+    display: none;                    /* se activa con JS */
     justify-content: center;
-    align-items: cneter;
-    z-index: 1000;
+    align-items: center;
+    z-index: 9999;
 }
 
+/* ==== CONTENIDO DEL MODAL ==== */
 .modal-content {
     background: #ffffff;
-    padding: 25px;
-    width: 85%;
-    max-width: 420px;
-    border-radius: 15px;
+    width: 90%;
+    max-width: 500px;
+    padding: 30px;
+    border-radius: 16px;
+    box-shadow: 0 8px 20px rgba(0,0,0,0.2);
     text-align: center;
-    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
+    animation: fadeIn 0.25s ease-out;
 }
 
+/* Animación suave */
+@keyframes fadeIn {
+    from { opacity: 0; transform: scale(0.95); }
+    to { opacity: 1; transform: scale(1); }
+}
+
+/* ==== TEXTOS ==== */
 .modal-content h2 {
-    margin-bottom: 15px;
-    font-size: 22px;
     color: #333;
+    font-size: 22px;
+    margin-bottom: 10px;
 }
 
 .modal-content p {
-    color: #555;
+    color: #444;
+    font-size: 16px;
     margin-bottom: 20px;
-    font-size: 15px;
 }
+
+/* CHECKBOX */
+.checkbox-group {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin: 15px 0 25px;
+}
+
+/* ==== BOTONES ==== */
+.modal-buttons {
+    display: flex;
+    justify-content: space-between;
+    gap: 15px;
+}
+
+.btn-cancelar-modal {
+    flex: 1;
+    padding: 12px;
+    border-radius: 30px;
+    background: #e8f5e9;
+    border: 2px solid #4CAF50;
+    color: #4CAF50;
+    cursor: pointer;
+    font-size: 15px;
+    transition: 0.3s;
+}
+
+.btn-cancelar-modal:hover {
+    background: #4CAF50;
+    color: #fff;
+}
+
+.btn-eliminar-modal {
+    flex: 1;
+    padding: 12px;
+    border-radius: 30px;
+    background: #e53935;
+    border: none;
+    color: #fff;
+    cursor: pointer;
+    font-size: 15px;
+    transition: 0.3s;
+}
+
+.btn-eliminar-modal:hover {
+    background: #c62828;
+}
+
 
 .checkbox-group {
     display: flex;
@@ -947,31 +1007,6 @@ button[type="submit"]:hover {
     align-items: center;
     gap: 8px;
     margin-bottom: 25px;
-}
-
-.modal-buttons {
-    display: flex;
-    justify-content: space-between;
-}
-
-.btn-cancelar-modal {
-    background: transparent;
-    border: 2px solid #439778;
-    color: #439778;
-    padding: 10px 18px;
-    border-radius: 20px;
-    cursor: pointer;
-    width: 45%;
-}
-
-.btn-eliminar-modal {
-    background: #c0392b;
-    border: none;
-    color: white;
-    padding: 10px 18px;
-    border-radius: 20px;
-    cursor: pointer;
-    width: 45%;
 }
 
 
@@ -1012,7 +1047,6 @@ button[type="submit"]:hover {
     align-items: center;
     gap: 60px;
 }
-
 
 
 .mockup-wrapper {
@@ -1170,7 +1204,7 @@ button[type="submit"]:hover {
 /* Lista del menú */
 .navbar ul {
     width: 100%;
-
+}
 /* Habilidad/Ejercicios en crisis */
 
 /* Contenedor de la habilidad */
@@ -1185,8 +1219,34 @@ button[type="submit"]:hover {
 }
 
 
-/* Título */
-.ejercicio-container h2 {
+.btn-back {
+    position: absolute;
+    top: 15px;
+    left: 15px;
+    background: transparent;
+    border: none;
+    font-size: 28px;
+    cursor: pointer;
+}
+
+.btn-home {
+    position: absolute;
+    top: 15px;
+    right: 15px;
+    background: transparent;
+    border: none;
+    font-size: 28px;
+    cursor: pointer;
+}
+
+
+.pasos-lista {
+    list-style: none;
+    padding-left: 0;
+}
+
+.navbar li {
+    width: 100%;
     text-align: center;
     font-size: 28px;
     margin-bottom: 10px;
@@ -1205,10 +1265,124 @@ button[type="submit"]:hover {
     padding: 0;
 }
 
-.lista-pasos li {
-    margin: 10px 0;
-    font-size: 17px;
+/* Cuando esté activo */
+.navbar.active {
+    right: 0;
+}
+
+#overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0,0,0,0.4);
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity .3s ease;
+    z-index: 1500;
+}
+
+/* Cuando está activo */
+#overlay.active {
+    opacity: 1;
+    pointer-events: all;
+}
+/* ===========================
+   FOOTER GENERAL
+   =========================== */
+
+.footer {
+    background: #063A36;
+    color: #d9f3eb;
+    padding-top: 40px;
+    font-family: 'Poppins', sans-serif;
+}
+
+.footer-container {
+    max-width: 1200px;
+    margin: auto;
+    padding: 0 20px;
+}
+
+.footer-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr; /* 3 columnas del mismo tamaño */
+    align-items: center;
+    text-align: center;
+    padding-bottom: 20px;
+}
+
+/* ---------- IZQUIERDA ---------- */
+.footer-left .footer-logo {
+    margin-right: 300px;
+    width: 120px;
+    opacity: 0.9;
+}
+
+/* ---------- CENTRO (links) ---------- */
+.footer-center {
     display: flex;
+    justify-content: center;
+    gap: 25px;
+}
+
+.footer-center a {
+    color: #c8e9df;
+    text-decoration: none;
+    font-size: 15px;
+    transition: 0.3s ease;
+}
+
+.footer-center a:hover {
+    color: #8ff5cf;
+    transform: translateY(-2px);
+}
+
+/* ---------- DERECHA ---------- */
+.footer-right {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    gap: 10px;
+}
+
+.footer-right p {
+    margin-bottom: 10px;
+    opacity: 0.8;
+}
+
+/* Redes sociales */
+.footer-socials {
+    display: flex;
+    gap: 10px;
+}
+
+.footer-socials .social-icon {
+    font-size: 24px;
+    color: #d9f3eb;
+    transition: 0.3s ease;
+}
+
+.footer-socials .social-icon:hover {
+    color: #8ff5cf;
+    transform: scale(1.2);
+}
+
+/* ---------- BANDA INFERIOR ---------- */
+.footer-bottom {
+    background: #02332f;
+    text-align: center;
+    padding: 10px 0;
+    margin-top: 20px;
+    border-top: 1px solid rgba(255, 255, 255, 0.15);
+    color: #b1d7cf;
+}
+
+
+.pasos-lista li {
+    display: flex;
+    align-items: center;
     gap: 10px;
     line-height: 1.4;
 }
@@ -1256,7 +1430,7 @@ button[type="submit"]:hover {
     cursor: pointer;
     object-fit: contain;
 }
-}
+
 
 /* Evaluacion */
 
@@ -1298,12 +1472,412 @@ button[type="submit"]:hover {
     font-size: 16px;
 }
 
-.btn-sig {
+.checkbox-paso {
+    width: 22px;
+    height: 22px;
+}
+
+.errores {
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-image: url('../img/fondo.png');
+    background-color: #24a374;
+    line-height: 1.6;
+}
+
+.error {
+    font-family: 'Poppins', sans-serif;
+    display: flex;
+    flex-direction: column; 
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    gap: 15px;
+}
+
+.h1-error {
+    font-size: 3rem;
+    color: rgb(255, 255, 255);
+}
+
+.p-error {
+    font-size: 1.1rem;
+    color: rgb(255, 255, 255);
+}
+
+.a-error {
+    font-size: 1.2rem;
+    color: rgb(255, 255, 255);
+}
+
+.texto-centrado-login {
+    text-align: center;
+    font-family: 'Poppins', sans-serif;
+    font-weight: 600;
+    font-size: 30px;
+}
+
+.forgot-password {
+    text-align: center;
+    margin-bottom: 15px;
+}
+
+.forgot-password a {
+    color: #2b8f76;
+    text-decoration: none;
+    font-size: 14px;
+}
+
+.forgot-password a:hover {
+    text-decoration: underline;
+}
+
+.datos-container {
+    background: white;
+    padding: 30px;
+    border-radius: 18px;
+    width: 70%;
+    margin: 40px auto;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+}
+
+.datos-container h1 {
+    text-align: center;
+    font-size: 32px;
+    margin-bottom: 25px;
+    color: #333;
+}
+
+.form-group {
+    margin-bottom: 18px;
+}
+
+.form-group label {
+    font-weight: 600;
+    color: #355f52;
+}
+
+.form-group input {
+    width: 100%;
+    padding: 10px;
+    border-radius: 10px;
+    border: 1px solid #cfe3db;
+    background: #eef7f2;
+}
+
+.form-info p {
+    margin: 5px 0;
+    color: #444;
+}
+
+.btns-datos {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 30px;
+}
+
+.btn-cancelar {
+    border: 2px solid #2e6e54;
+    padding: 12px 22px;
+    border-radius: 12px;
+    color: #2e6e54;
+    text-decoration: none;
+    font-weight: 600;
+}
+
+.btn-guardar {
+    padding: 12px 22px;
     background: #439778;
     color: white;
+    border-radius: 12px;
     border: none;
-    padding: 12px 20px;
-    border-radius: 20px;
-    cursor: pointer;
+    font-weight: 600;
+    flex-grow: 1;
+    margin-left: 20px;
+}
+
+/* Evitar contenido duplicado en inputs */
+input::before,
+input::after {
+    content: none !important;
+}
+
+/* Limpia posibles backgrounds o iconos que causan superposición */
+input {
+    background-image: none !important;
+    background-position: initial !important;
+    background-repeat: no-repeat !important;
+    padding-left: 15px !important;
+}
+
+.form-group input {
+    width: 100%;
+    padding: 12px 16px;
+    border-radius: 10px;
+    border: 1px solid #cfe3db;
+    background-color: #f4faf7 !important;
+    color: #222;
     font-size: 16px;
+    line-height: normal;
+    display: block;
+    box-sizing: border-box;
+}
+
+input:-webkit-autofill,
+input:-webkit-autofill:hover,
+input:-webkit-autofill:focus {
+    -webkit-text-fill-color: #222 !important;
+    -webkit-box-shadow: 0 0 0px 1000px #f4faf7 inset !important;
+    box-shadow: 0 0 0px 1000px #f4faf7 inset !important;
+}
+
+input::before,
+input::after {
+    display: none !important;
+    content: "" !important;
+}
+
+.select-documento {
+    width: 100%;
+    padding: 14px;
+    border: 1px solid #cfe3db;
+    border-radius: 12px;
+    background: #eef7f2;
+    font-size: 16px;
+    color: #355f52;
+    appearance: none; /* quita el estilo feo del sistema */
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    cursor: pointer;
+}
+
+/* Ícono lindo para la flecha */
+.select-documento {
+    background-image: url("data:image/svg+xml;utf8,<svg fill='%23355f52' height='24' viewBox='0 0 24 24' width='24' xmlns='http://www.w3.org/2000/svg'><path d='M7 10l5 5 5-5z'/></svg>");
+    background-repeat: no-repeat;
+    background-position: right 16px center;
+    background-size: 18px;
+}
+
+/* Centrar la perilla EXACTAMENTE bajo cada emoji */
+.slider {
+    width: 90%;
+    margin: 0 auto;
+    display: block;
+    height: 8px;
+    background: #dcdcdc;
+    border-radius: 5px;
+}
+
+/* Quitar estilos por defecto */
+.slider::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 26px;  
+    height: 26px;
+    background: #2e8b57;
+    border-radius: 50%;
+    cursor: pointer;
+    margin-top: -10px; /* Centra verticalmente */
+    transition: 0.2s;
+}
+
+/* Firefox */
+.slider::-moz-range-thumb {
+    width: 26px;
+    height: 26px;
+    background: #2e8b57;
+    border-radius: 50%;
+    cursor: pointer;
+    transition: 0.2s;
+}
+
+/* Alinear emojis y slider */
+.emoji-line {
+    display: flex;
+    justify-content: space-between;
+    width: 90%;
+    margin: 20px auto 10px auto;
+}
+
+.emoji {
+    font-size: 30px;
+}
+
+.nivel-box {
+    width: 80%;
+    margin: 0 auto;
+    padding: 20px;
+    border-radius: 15px;
+    text-align: center;
+    color: white;
+    font-size: 28px;
+    font-weight: bold;
+    box-sizing: border-box; /* evita desbordes */
+}
+
+/* Espacio entre emojis y slider */
+.emoji-line {
+    display: flex;
+    justify-content: space-between;
+    width: 80%;
+    margin: 25px auto 25px auto;
+}
+
+.slider {
+    width: 80%;
+    margin: 0 auto 25px auto; /* SEPARA EL SLIDER DE EMOJIS */
+    display: block;
+}
+
+/* Ajuste fino para centrar el thumb */
+.slider::-webkit-slider-thumb {
+    margin-left: -13px; /* Ajuste preciso */
+}
+
+.slider::-moz-range-thumb {
+    transform: translateX(-13px);
+}
+
+/* Fila para poner inputs lado a lado */
+.form-row {
+    display: flex;
+    gap: 15px;
+}
+
+.form-row .mitad {
+    width: 50%;
+}
+
+/* Contactos de emergencia */
+.titulo-emergencia {
+    margin-top: 25px;
+    font-size: 18px;
+    color: #355f52;
+}
+
+.contacto-item {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 12px;
+}
+
+.contacto-item input,
+.contacto-item select {
+    flex: 1;
+}
+
+/* Botón agregar contacto */
+.btn-agregar {
+    background: #d5eee2;
+    color: #2e6e54;
+    border: 2px solid #2e6e54;
+    padding: 10px 15px;
+    border-radius: 10px;
+    cursor: pointer;
+    margin-bottom: 20px;
+}
+
+/* Botón eliminar contacto */
+.btn-eliminar {
+    background: #ffcccc;
+    border: none;
+    padding: 5px 10px;
+    border-radius: 6px;
+    cursor: pointer;
+    color: #a00000;
+}
+
+.fondo-registro {
+    min-height: 100vh;   
+    height: auto !important;
+    overflow-x: hidden;
+}
+
+.fondo-registro {
+    background-size: cover;   /* siempre cubre la pantalla completa */
+    background-repeat: no-repeat;
+    background-attachment: fixed; 
+    background-position: center;
+
+    min-height: 100vh;   /* asegura que nunca se corte */
+}
+
+.registro {
+    min-height: 100vh;
+    height: auto;
+}
+
+.fondo-registro {
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+    background-attachment: fixed;
+
+    min-height: 100vh;
+    height: auto;
+}
+
+.fondo-registro {
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+    background-attachment: fixed;
+
+    min-height: 100vh;   /* altura mínima de la pantalla */
+    padding-top: 80px;   /* SEPARA el formulario del borde superior */
+    padding-bottom: 80px; /* evita que el final se corte */
+}
+
+.registro {
+    width: 70%;
+    max-width: 600px;
+    margin: 0 auto;
+
+    padding-bottom: 50px;  /* IMPORTANTE */
+    padding-top: 30px;     /* IMPORTANTE */
+
+    height: auto !important;
+
+    overflow: visible !important;
+}
+
+.registro {
+    margin-top: 350px !important;   /* asegúrate que el formulario baje */
+    padding-top: 30px;
+}
+
+.registro-wrapper {
+    display: flex;
+    justify-content: center;
+    padding-top: 800px; /* espacio extra para scroll */
+    padding-bottom: 500px;
+    width: 100%;
+}
+
+.alert-container {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    margin-bottom: 20px;
+}
+
+.alert {
+    padding: 12px 20px;
+    border-radius: 10px;
+    font-size: 16px;
+    font-weight: 500;
+    width: 60%;
+    text-align: center;
+}
+
+/* Colores según tipo */
+.alert-success {
+    background-color: #c9f7c9;
+    color: #1a7f1a;
+}
+
+.alert-error {
+    background-color: #ffd6d6;
+    color: #a60000;
 }

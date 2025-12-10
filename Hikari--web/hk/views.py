@@ -4,6 +4,12 @@ from django.contrib import messages
 from .models import Usuario
 import hashlib, os, re
 import bcrypt
+from django.utils import timezone
+from .models import Usuario, ContactoEmergencia
+from django.shortcuts import render, redirect, get_object_or_404
+
+
+
 
 
 
@@ -28,16 +34,17 @@ def validar_password_fuerte(password):
 # HOME
 # ==========================================================
 def home_view(request):
-<<<<<<< Updated upstream
-    usuario_logeado = "usuario_id" in request.session
+    usuario_id = request.session.get("usuario_id")
+    alias = request.session.get("usuario_alias")
 
-    return render(request, "paginas/home.html", {
-        "usuario_logeado": usuario_logeado
-    })
+    context = {
+        "usuario_logeado": bool(usuario_id),  # para los IF del home
+        "alias": alias,                       # para el mensaje de bienvenida
+    }
+    return render(request, "paginas/home.html", context)
 
-=======
-    return render(request, "paginas/home.html")
->>>>>>> Stashed changes
+
+
 
 
 # ==========================================================
@@ -45,37 +52,33 @@ def home_view(request):
 # ==========================================================
 def login_view(request):
     if request.method == "POST":
-        email = request.POST.get("username")
+        correo = request.POST.get("correo")
         password = request.POST.get("password")
 
-        # Buscar usuario por correo
+        if not correo or not password:
+            messages.error(request, "Correo y contraseña son obligatorios.")
+            return redirect("login")
+
         try:
-            usuario = Usuario.objects.get(email_usuario=email)
+            usuario = Usuario.objects.get(email_usuario=correo)
         except Usuario.DoesNotExist:
-            messages.error(request, "El correo no está registrado.")
-            return render(request, "paginas/login.html")
+            messages.error(request, "Correo o contraseña incorrectos.")
+            return redirect("login")
 
-        # Contraseña ingresada
-        entered_password = password.encode("utf-8")
-
-        # Contraseña guardada en base de datos
-        stored_password = usuario.contrasena.encode("utf-8")
-
-        # Verificar con bcrypt
-        if not bcrypt.checkpw(entered_password, stored_password):
-            messages.error(request, "Contraseña incorrecta.")
-            return render(request, "paginas/login.html")
-
-        # Guardar sesión usando id_usuario
-        request.session["usuario_id"] = usuario.id_usuario
-
-<<<<<<< Updated upstream
-        return redirect("home")
-=======
-        return redirect("perfil")
->>>>>>> Stashed changes
+        # Verificar contraseña
+        if bcrypt.checkpw(password.encode("utf-8"), usuario.contrasena.encode("utf-8")):
+            request.session["usuario_id"] = usuario.id_usuario
+            request.session["usuario_alias"] = usuario.alias
+            return redirect("home")
+        else:
+            messages.error(request, "Correo o contraseña incorrectos.")
+            return redirect("login")
 
     return render(request, "paginas/login.html")
+
+
+
+
 
 
 
@@ -86,64 +89,49 @@ def login_view(request):
 def registro_view(request):
     if request.method == "POST":
 
-        print(">>> SE EJECUTÓ REGISTRO_VIEW <<<")
+        nombres = request.POST.get("nombres")
+        apellidos = request.POST.get("apellidos")
+        alias = request.POST.get("alias")
+        correo = request.POST.get("correo")
+        telefono = request.POST.get("telefono")
+        password = request.POST.get("password")
 
-        nombre = request.POST.get("nombres")
-        apellido = request.POST.get("apellidos")
-        identificacion = request.POST.get("identificacion")
-        celular = request.POST.get("celular")
-        email = request.POST.get("email")
-        contrasena = request.POST.get("contrasena")
-        confirmar = request.POST.get("confirmar_contrasena")
-
-        # Validar campos vacíos
-        if not nombre or not apellido or not email or not contrasena:
-            messages.error(request, "Completa todos los campos obligatorios.")
+        # Validar campos básicos
+        if not correo or not password:
+            messages.error(request, "Correo y contraseña son obligatorios.")
             return redirect("registro")
 
-        # Validar correo
-        if not re.match(r"[^@]+@[^@]+\.[^@]+", email):
-            messages.error(request, "Correo inválido.")
+        # Validar si ya existe el correo
+        if Usuario.objects.filter(email_usuario=correo).exists():
+            messages.error(request, "Este correo ya está registrado.")
             return redirect("registro")
 
-        # Validar contraseña mínima
-        if len(contrasena) < 6:
-            messages.error(request, "La contraseña debe tener al menos 6 caracteres.")
-            return redirect("registro")
-
-        # Confirmación
-        if contrasena != confirmar:
-            messages.error(request, "Las contraseñas no coinciden.")
-            return redirect("registro")
-
-        # Celular de 10 dígitos
-        if not re.fullmatch(r"\d{10}", celular):
-            messages.error(request, "El celular debe tener 10 dígitos.")
-            return redirect("registro")
-
-        # Correo existente
-        if Usuario.objects.filter(email_usuario=email).exists():
-            messages.error(request, "El correo ya está registrado.")
-            return redirect("registro")
-
-        # Encriptar con bcrypt
-        salt = bcrypt.gensalt()
-        hashed = bcrypt.hashpw(contrasena.encode('utf-8'), salt)
-
-        Usuario.objects.create(
-            nombre_usuario=nombre,
-            apellido_usuario=apellido,
-            email_usuario=email,
-            telefono_usuario=celular,
-            contrasena=hashed.decode('utf-8'),
-            salt=salt.decode('utf-8'),
-            rol="usuario"
+        # Crear usuario vacío primero
+        usuario = Usuario.objects.create(
+            nombre_usuario=nombres,
+            apellido_usuario=apellidos,
+            alias=alias,
+            email_usuario=correo,
+            telefono_usuario=telefono,
+            rol="usuario",
+            usuario_activo=True,
+            fecha_creacion=timezone.now(),
         )
 
-        messages.success(request, "Cuenta creada exitosamente.")
+        # Generar hash y salt correctamente
+        salt = bcrypt.gensalt()
+        hashed = bcrypt.hashpw(password.encode(), salt)
+
+        usuario.contrasena = hashed.decode('utf-8')
+        usuario.salt = salt.decode('utf-8')
+        usuario.save()
+
+        messages.success(request, "Cuenta creada con éxito. Ahora inicia sesión.")
         return redirect("login")
 
     return render(request, "paginas/registro.html")
+
+
 
 
 
@@ -177,21 +165,140 @@ def datos_personales_view(request):
     if "usuario_id" not in request.session:
         return redirect("login")
 
-    usuario = Usuario.objects.get(id=request.session["usuario_id"])
+    usuario = Usuario.objects.get(id_usuario=request.session["usuario_id"])
+    contactos = ContactoEmergencia.objects.filter(usuario=usuario)
 
     if request.method == "POST":
 
-        usuario.nombre_usuario = request.POST.get("nombres")
-        usuario.apellido_usuario = request.POST.get("apellidos")
-        usuario.telefono_usuario = request.POST.get("telefono")
-        usuario.email_usuario = request.POST.get("correo")
+        # ---------------------------------------------------
+        # 1️⃣ AGREGAR CONTACTO NUEVO
+        # ---------------------------------------------------
+        if request.POST.get("accion") == "agregar_contacto":
 
-        usuario.save()
+            nuevo_nombre = request.POST.get("nuevo_nombre")
+            nuevo_numero = request.POST.get("nuevo_numero")
+            nuevo_prioridad = request.POST.get("nuevo_prioridad")
+
+            if nuevo_nombre and nuevo_numero:
+                ContactoEmergencia.objects.create(
+                    usuario=usuario,
+                    nombre=nuevo_nombre,
+                    numero=nuevo_numero,
+                    prioridad=nuevo_prioridad
+                )
+                messages.success(request, "Contacto agregado correctamente.")
+            else:
+                messages.error(request, "Debes llenar nombre y número para agregar un contacto.")
+
+            return redirect("datos_personales")
+
+        # ---------------------------------------------------
+        # 2️⃣ GUARDAR DATOS PERSONALES
+        # Solo se ejecuta si el POST contiene "correo"
+        # ---------------------------------------------------
+        if request.POST.get("correo"):
+
+            usuario.nombre_usuario = request.POST.get("nombres")
+            usuario.apellido_usuario = request.POST.get("apellidos")
+            usuario.alias = request.POST.get("alias")
+            usuario.telefono_usuario = request.POST.get("telefono")
+            usuario.email_usuario = request.POST.get("correo")
+
+            usuario.save()
+            request.session["usuario_alias"] = usuario.alias
+
+        # ---------------------------------------------------
+        # 3️⃣ EDITAR CONTACTOS EXISTENTES
+        # ---------------------------------------------------
+        for contacto in contactos:
+            nombre = request.POST.get(f"nombre_{contacto.id}")
+            numero = request.POST.get(f"numero_{contacto.id}")
+            prioridad = request.POST.get(f"prioridad_{contacto.id}")
+
+            if nombre:
+                contacto.nombre = nombre
+            if numero:
+                contacto.numero = numero
+            if prioridad:
+                contacto.prioridad = prioridad
+
+            contacto.save()
 
         messages.success(request, "Datos actualizados correctamente.")
-        return redirect("perfil")
+        return redirect("datos_personales")
 
-    return render(request, "paginas/datos_personales.html", {"usuario": usuario})
+    return render(request, "paginas/datos_personales.html", {
+        "usuario": usuario,
+        "contactos": contactos,
+    })
+
+
+
+
+
+def agregar_contacto(request):
+    if "usuario_id" not in request.session:
+        return redirect("login")
+
+    usuario = Usuario.objects.get(id_usuario=request.session["usuario_id"])
+
+    if request.method == "POST":
+        ContactoEmergencia.objects.create(
+            usuario=usuario,
+            nombre=request.POST.get("nombre"),
+            numero=request.POST.get("numero"),
+            prioridad=request.POST.get("prioridad")
+        )
+
+    return redirect("datos_personales")
+
+
+
+def editar_contacto(request, id):
+    if "usuario_id" not in request.session:
+        return redirect("login")
+
+    contacto = get_object_or_404(ContactoEmergencia, id=id)
+
+    # Aseguramos que el contacto pertenece al usuario logueado
+    if contacto.usuario_id != request.session["usuario_id"]:
+        messages.error(request, "No tienes permiso para editar este contacto.")
+        return redirect("datos_personales")
+
+    if request.method == "POST":
+        contacto.nombre = request.POST.get("nombre")
+        contacto.numero = request.POST.get("numero")
+        contacto.prioridad = request.POST.get("prioridad")
+        contacto.save()
+
+        messages.success(request, "Contacto actualizado correctamente.")
+        return redirect("datos_personales")
+
+    return render(request, "paginas/editar_contacto.html", {
+        "contacto": contacto
+    })
+
+def eliminar_contacto(request, id):
+    if "usuario_id" not in request.session:
+        return redirect("login")
+
+    # Buscar el contacto o mostrar error 404 si no existe
+    contacto = get_object_or_404(ContactoEmergencia, id=id)
+
+    # Revisar que el contacto sí pertenece al usuario logueado
+    if contacto.usuario_id != request.session["usuario_id"]:
+        messages.error(request, "No tienes permiso para eliminar este contacto.")
+        return redirect("datos_personales")
+
+    # Eliminar contacto
+    contacto.delete()
+    messages.success(request, "Contacto eliminado correctamente.")
+
+    return redirect("datos_personales")
+
+
+
+
 
 
 
@@ -208,8 +315,10 @@ def crisis_view(request):
 # ----------------------------------------
 def logout_view(request):
     request.session.flush()
-<<<<<<< Updated upstream
     return redirect("home")
-=======
-    return redirect("login")
->>>>>>> Stashed changes
+
+def error404_view(request):
+    return render(request, "paginas/error404.html")
+
+def error500_view(request):
+    return render(request, "paginas/error500.html")

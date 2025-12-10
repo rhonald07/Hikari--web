@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+
+{% load static %}
+
+{% block content %}
+
+<body class="errores">
+
+    <div class="error">
+        <b><h1 class="h1-error">Error 404</h1></b>
+        <p class="p-error">La pagina que buscas no existe</p>
+        <a href="{% url 'home' %}" class="a-error">volver al inicio</a>
+        <img src="{% static 'imagenes/error.png' %}">
+    </div>
+</body>
+
+{% endblock %}

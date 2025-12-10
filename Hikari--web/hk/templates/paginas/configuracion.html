@@ -1,22 +1,41 @@
-<<<<<<< Updated upstream
-<!DOCTYPE html>
-<html lang="es">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Hikari - Configuracion</title>
-    <link rel="stylesheet" href="../../../public/css/style.css">
-</head>
-<body class="fondo-configuracion">
-    <main class="configuracion">
-=======
 {% extends "base.html" %}
 
+{% load static %}
 
 {% block content %}
 
+<body class="fondo-configuracion">
+    <header class="header">
+    <div class="menu container">
+        <a href="{% url 'home' %}" class="logo"><img src="{% static 'imagenes/logo-alt-light-transparent.png' %}" class="logo"></a>
+
+        <input type="checkbox" id="menu">
+        <label for="menu">
+            <img src="{% static 'imagenes/menu.png' %}" class="menu-icono" alt="Menú">
+        </label>
+
+        <nav class="navbar">
+                <div class="nav-logo">
+                    <img src="{% static 'imagenes/logo-alt-dark-transparent.png' %}" alt="Hikari">
+                </div>
+            <ul>
+                {% if not request.session.usuario_id %}
+                <li><a href="{% url 'login' %}">Iniciar sesion</a></li>
+                <li><a href="{% url 'registro' %}">Registrarse</a></li>
+                {% endif %}
+                <li><a href="{% url 'crisis' %}">Crisis</a></li>
+                <li><a href="{% url 'home' %}">Habilidades</a></li>
+                <li><a href="{% url 'perfil' %}">Perfil</a></li>
+                {% if request.session.usuario_id %}
+                <li><a href="{% url 'logout' %}">Cerrar sesión</a></li>
+                {% endif %}
+            </ul>
+        </nav>
+        <div class="overlay" id="overlay"></div>
+    </div>
+</header>
+
 <main class="configuracion">
->>>>>>> Stashed changes
 
     <h1>Configuración</h1>
 
@@ -28,17 +47,16 @@
     <section class="config-section">
         <h2>Seguridad</h2>
         <a href="#" class="config-item">Cambiar contraseña</a>
-        <a href="#" class="config-item eliminar">Eliminar cuenta</a>
     </section>
 
     <section class="config-section">
         <h2>Cuenta</h2>
         <a href="{% url 'logout' %}" class="config-item cerrar-sesion">Cerrar sesión</a>
+        <a href="#" class="config-item eliminar">Eliminar cuenta</a>
     </section>
 
 </main>
 
-<<<<<<< Updated upstream
 <div class="modal" id="modal-eliminar">
             <div class="modal-content">
 
@@ -59,9 +77,7 @@
                 </div>
             </div>
 </div>
-<script> src="../public/js/configuracion.js"</script>
+<script src="{% static 'js/configuracion.js' %}"></script>
+<script src="{% static 'js/home.js' %}"></script>
 </body>
-</html>
-=======
 {% endblock %}
->>>>>>> Stashed changes

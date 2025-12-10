@@ -1,32 +1,14 @@
-<<<<<<< HEAD
 {% extends "base.html" %}
-
-<<<<<<< Updated upstream
 {% load static %}
 
 {% block content %}
+
 <body class="fondo-registro">
-=======
-<!DOCTYPE html>
-<html lang="es">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Hikari - Registro</title>
-    <link rel="stylesheet" href="../../../public/css/style.css">
-</head>
-<body>
->>>>>>> 4e8be882346770093d08163d4bf9b5065753ee36
-    <div class="registro">
-=======
-{% block content %}
+    <div class="registro-wrapper"></div>
+        <div class="registro">
 
-<div class="registro">
-
->>>>>>> Stashed changes
     <h1>Registrarse</h1>
 
-    <!-- Mostrar mensajes -->
     {% if messages %}
     <div class="mensajes">
         {% for mensaje in messages %}
@@ -38,45 +20,109 @@
     <form method="post" action="{% url 'registro' %}">
         {% csrf_token %}
 
-        <div class="form-group">
-            <input type="text" id="nombres" name="nombres" placeholder="Nombres" required>
+        <!-- FILA 1 → Nombre + Apellido -->
+        <div class="form-row">
+            <div class="form-group mitad">
+                <input type="text" id="nombres" name="nombres" placeholder="Nombres" required>
+            </div>
+
+            <div class="form-group mitad">
+                <input type="text" id="apellidos" name="apellidos" placeholder="Apellidos" required>
+            </div>
         </div>
 
+        <!-- Alias -->
         <div class="form-group">
-            <input type="text" id="apellidos" name="apellidos" placeholder="Apellidos" required>
+            <input type="text" name="alias" placeholder="¿Cómo te gustaría que te llamáramos?" required>
         </div>
 
+        <!-- Tipo documento -->
+        <div class="form-group">
+            <select name="tipo_documento" class="select-documento" required>
+                <option value="">Selecciona tu documento</option>
+                <option value="CC">Cédula de ciudadanía</option>
+                <option value="TI">Tarjeta de identidad</option>
+                <option value="CE">Cédula de extranjería</option>
+                <option value="PAS">Pasaporte</option>
+                <option value="NIT">NIT</option>
+                <option value="PEP_PPT">PEP / PPT</option>
+            </select>
+        </div>
+
+        <!-- Número documento -->
         <div class="form-group">
             <input type="number" id="identificacion" name="identificacion" placeholder="Número de identificación" required>
         </div>
 
+        <!-- Celular -->
         <div class="form-group">
             <input type="text" id="celular" name="celular" placeholder="Número de celular" required>
         </div>
 
+        <!-- EMAIL -->
         <div class="form-group">
-            <input type="email" id="email" name="email" placeholder="Correo" required>
+            <input type="email" id="email" name="correo" placeholder="Correo" required>
         </div>
 
+        <!-- PASSWORD -->
         <div class="form-group">
-            <input type="password" id="contrasena" name="contrasena" placeholder="Contraseña" required>
+            <input type="password" id="contrasena" name="password" placeholder="Contraseña" required>
         </div>
 
         <div class="form-group">
             <input type="password" id="confirmar_contrasena" name="confirmar_contrasena" placeholder="Confirmar contraseña" required>
         </div>
 
+
+        <!-- CONTACTO DE EMERGENCIA -->
+        <h3 class="titulo-emergencia">Contacto de emergencia</h3>
+
+        <div id="contactos-container">
+
+            <!-- CONTACTO BASE -->
+            <div class="contacto-item">
+                <input type="text" name="contacto_nombre[]" placeholder="Nombre del contacto" required>
+                <input type="text" name="contacto_numero[]" placeholder="Número" required>
+                <select name="contacto_prioridad[]" class="select-documento">
+                    <option value="alta">Prioridad alta</option>
+                    <option value="media">Prioridad media</option>
+                    <option value="baja">Prioridad baja</option>
+                </select>
+            </div>
+
+        </div>
+
+        <button type="button" id="btnAgregarContacto" class="btn-agregar">
+            + Agregar otro contacto
+        </button>
+
+        <!-- BOTÓN CREAR CUENTA -->
         <button type="submit" class="btn-registrarse">Crear cuenta</button>
+
     </form>
-<<<<<<< Updated upstream
-
 </div>
-    <script src="/public/js/index.js"></script>
-
-    {% endblock %}
-=======
-
 </div>
+</body>
+<script>
+document.getElementById("btnAgregarContacto").addEventListener("click", function () {
+    const contenedor = document.getElementById("contactos-container");
+
+    const nuevo = document.createElement("div");
+    nuevo.classList.add("contacto-item");
+
+    nuevo.innerHTML = `
+        <input type="text" name="contacto_nombre[]" placeholder="Nombre del contacto" required>
+        <input type="text" name="contacto_numero[]" placeholder="Número" required>
+        <select name="contacto_prioridad[]" class="select-documento">
+            <option value="alta">Prioridad alta</option>
+            <option value="media">Prioridad media</option>
+            <option value="baja">Prioridad baja</option>
+        </select>
+        <button type="button" class="btn-eliminar" onclick="this.parentElement.remove()">Eliminar</button>
+    `;
+
+    contenedor.appendChild(nuevo);
+});
+</script>
 
 {% endblock %}
->>>>>>> Stashed changes

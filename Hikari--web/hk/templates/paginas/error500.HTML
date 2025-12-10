@@ -1,0 +1,19 @@
+{% extends "base.html" %}
+
+{% load static %}
+
+{% block content %}
+
+<body class="errores">
+
+    <div class="error">
+        <b><h1 class="h1-error">Error 500</h1></b>
+        <p class="p-error">Hubo un error interno en el servidor</p>
+        <p class="p-error">intenta de nuevo mas tarde</p>
+        <a href="{% url 'home' %}" class="a-error">volver al inicio</a>
+        <img src="{% static 'imagenes/error.png' %}">
+
+    </div>
+</body>
+
+{% endblock %}
