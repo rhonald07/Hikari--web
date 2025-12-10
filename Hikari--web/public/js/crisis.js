@@ -5,6 +5,7 @@ const emojiList = document.querySelectorAll("#emojiLine .emoji");
 const btnHome = document.getElementById("btnHome");
 const btnContinuar = document.getElementById("btnContinuar");
 
+let nivelActual = 1;
 /* COLORES DEL NIVEL */
 const colores = [
     "#2ecc71", "#55d86c", "#7fe067", "#a8e862", "#d1f05d",
@@ -13,19 +14,10 @@ const colores = [
 
 
 slider.addEventListener("input", () => {
-    const nivel = parseInt(slider.value);
-
-    // Texto
-    nivelText.textContent = `NIVEL ${nivel}`;
-
-    // Color de la caja
-    nivelBox.style.background = colores[nivel - 1];
-
-    // Emojis
-    emojiList.forEach((emoji, index) => {
-        emoji.classList.toggle("activo", index + 1 === nivel);
-    });
+    nivelActual = parseInt(slider.value);
+    nivelText.textContent = "NIVEL " + nivelActual;
 });
+
 
 /* CASITA → HOME */
 btnHome.addEventListener("click", () => {

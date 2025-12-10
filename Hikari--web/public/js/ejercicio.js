@@ -1,8 +1,7 @@
-console.log("JS cargado correctamente");
+
 const habilidades = {
     alta: {  // Nivel 8–10
-        nombre: "TIP: cambiar la activación del cuerpo",
-        descripcion: "Habilidades breves basadas en el cuerpo para bajar de forma rápida la intensidad emocional.",
+        descripcion: "Habilidades breves basadas en el cuerpo para bajar la intensidad emocional.",
         ejercicios: [
             {
                 nombre: "Respiración rápida y después profunda",
@@ -21,13 +20,14 @@ const habilidades = {
                     "Apoya tus manos o rostro en el agua por unos segundos.",
                     "Respira calmadamente mientras sientes la temperatura.",
                     "Repite varias veces si no hay contraindicaciones médicas.",
-                    "Nota cualquier cambio en la emoción."
+                    "Nota cualquier cambio en la intensidad emocional."
                 ]
             }
         ]
     },
 
     media: { // Nivel 4–8
+        descripcion: "Usar los sentidos para recuperar calma y seguridad.",
         ejercicios: [
             {
                 nombre: "Cálmate con los cinco sentidos",
@@ -45,38 +45,42 @@ const habilidades = {
 };
 
 
-// Recuperamos nivel
-const nivel = parseInt(localStorage.getItem("nivelMalestar"));
-let ejercicioActual = 0;
-let habilidadSeleccionada;
+let nivel = parseInt(localStorage.getItem("nivelMalestar"));
+let ejercicioActual = parseInt(localStorage.getItem("ejercicioActual"));
 
-// Selección de habilidad según nivel
-if (nivel >= 8) {
-    habilidadSeleccionada = habilidades.alta;
-} else {
-    habilidadSeleccionada = habilidades.media;
-}
+if (isNaN(ejercicioActual)) ejercicioActual = 0; // evita errores
+
+
+let habilidadSeleccionada = nivel >= 8 ? habilidades.alta : habilidades.media;
+
 
 const titulo = document.getElementById("titulo-habilidad");
 const descripcion = document.getElementById("descripcion-habilidad");
 const lista = document.getElementById("lista-pasos");
 const btnSiguiente = document.getElementById("btnSiguiente");
 
-// Cargar el ejercicio actual
+
 function cargarEjercicio() {
     const ejercicio = habilidadSeleccionada.ejercicios[ejercicioActual];
-    
+
+    // En caso de que alguien avance más de lo permitido
+    if (!ejercicio) {
+        ejercicioActual = 0;
+        localStorage.setItem("ejercicioActual", 0);
+    }
+
     titulo.textContent = ejercicio.nombre;
     descripcion.textContent = habilidadSeleccionada.descripcion;
+
     lista.innerHTML = "";
 
-    ejercicio.pasos.forEach((paso, i) => {
+    ejercicio.pasos.forEach((paso, index) => {
         const li = document.createElement("li");
 
         const check = document.createElement("input");
         check.type = "checkbox";
         check.classList.add("checkbox-paso");
-        check.dataset.index = i;
+        check.dataset.index = index;
 
         check.addEventListener("change", verificarPasos);
 
@@ -84,20 +88,23 @@ function cargarEjercicio() {
         li.appendChild(document.createTextNode(paso));
         lista.appendChild(li);
     });
+
+    btnSiguiente.disabled = true;
 }
+
 
 function verificarPasos() {
     const checks = document.querySelectorAll(".checkbox-paso");
-    const todosMarcados = [...checks].every(ch => ch.checked);
-
-    btnSiguiente.disabled = !todosMarcados;
+    const completos = [...checks].every(c => c.checked);
+    btnSiguiente.disabled = !completos;
 }
+
 
 btnSiguiente.addEventListener("click", () => {
     localStorage.setItem("nivelMalestar", nivel);
     localStorage.setItem("ejercicioActual", ejercicioActual);
-
     window.location.href = "evaluacion.html";
 });
+
 
 cargarEjercicio();

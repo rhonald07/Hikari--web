@@ -4,36 +4,35 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Hikari - Ejercicio DBT</title>
-
-    <!-- CORREGIDO: cierre de comillas -->
+    
+    <!-- Ruta CSS -->
     <link rel="stylesheet" href="../../../public/css/style.css">
 </head>
 
 <body class="fondo-ejercicio">
 
+    <!-- Botones superiores -->
+    <div class="top-buttons">
+        <img src="../../../public/img/regreso.png" class="btn-back" alt="Regresar">
+        <img src="../../../public/img/home.png" class="btn-home" alt="Inicio">
+    </div>
+
     <main class="ejercicio-container">
 
-        <!-- Flecha Regresar -->
-        <button class="btn-back" id="btnBack">⬅</button>
+        <h2 id="titulo-habilidad"></h2>
 
-        <!-- Botón Home -->
-        <button class="btn-home" id="btnHome">🏠</button>
+        <p id="descripcion-habilidad" class="descripcion"></p>
 
-        <h1 id="titulo-habilidad">Cargando...</h1>
-        <p id="descripcion-habilidad"></p>
+        <ul id="lista-pasos" class="lista-pasos"></ul>
 
-        <ul id="lista-pasos" class="pasos-lista">
-            <!-- Se cargan con JS -->
-        </ul>
-
-        <button class="btn-continuar" id="btnSiguiente" disabled>
+        <button id="btnSiguiente" disabled class="btn-ejercicio">
             Siguiente
         </button>
 
     </main>
 
-    <!-- CORREGIDO: la forma en que colocaste el script -->
+    <!-- Script -->
     <script src="../../../public/js/ejercicio.js"></script>
+
 </body>
 </html>
-
