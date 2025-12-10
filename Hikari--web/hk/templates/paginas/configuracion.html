@@ -42,11 +42,13 @@
     <section class="config-section">
         <h2>Datos</h2>
         <a href="{% url 'datos_personales' %}" class="config-item">Datos personales</a>
+        <a href="{% url 'historial' %}" class="config-item">Historial</a>
     </section>
 
     <section class="config-section">
         <h2>Seguridad</h2>
-        <a href="#" class="config-item">Cambiar contraseña</a>
+        <a href="#" class="config-item" onclick="abrirCambiarPass()">Cambiar contraseña</a>
+
     </section>
 
     <section class="config-section">
@@ -57,26 +59,72 @@
 
 </main>
 
-<div class="modal" id="modal-eliminar">
-            <div class="modal-content">
 
-                <h2>¿Estas seguro/a de eliminar tu cuenta?</h2>
-                <p>
-                    Esta accion no se puede deshacer.
-                    Tu cuenta sera eliminada permanentemente.
-                </p>
-                <div class="checkbox-group">
-                    <input type="checkbox" id="confirmar-historial">
-                    <label for="confirmar-historial">
-                        Tambien deseo eliminar mi historial de crisis
-                    </label>
-                </div>
-                <div class="modal-buttons">
-                    <button class="btn-cancelar-modal">Cancelar</button>
-                    <button class="btn-eliminar-modal">Eliminar cuenta</button>
-                </div>
+<!-- === MODAL CAMBIAR CONTRASEÑA === -->
+<div id="modal-cambiar-pass" class="modal">
+    <div class="modal-content">
+        <h2>Cambiar contraseña</h2>
+
+        <form method="POST" action="{% url 'cambiar_contraseña' %}">
+            {% csrf_token %}
+
+            <div class="form-group">
+                <input type="password" name="pass_actual" required>
+                <label>Contraseña actual</label>
             </div>
+
+            <div class="form-group">
+                <input type="password" name="pass_nueva" minlength="6" required>
+                <label>Nueva contraseña</label>
+            </div>
+
+            <div class="form-group">
+                <input type="password" name="pass_confirmar" minlength="6" required>
+                <label>Confirmar nueva contraseña</label>
+            </div>
+
+            <div class="modal-buttons">
+                <button type="button" class="btn-cancelar-modal" onclick="cerrarCambiarPass()">Cancelar</button>
+                <button type="submit" class="btn-eliminar-modal">Guardar cambios</button>
+            </div>
+        </form>
+    </div>
 </div>
+<!-- === MODAL ELIMINAR CUENTA === -->
+
+<div class="modal" id="modal-eliminar">
+    <div class="modal-content">
+
+        <h2>¿Estas seguro/a de eliminar tu cuenta?</h2>
+        <p>
+            Esta accion no se puede deshacer.
+            Tu cuenta sera eliminada permanentemente.
+        </p>
+
+        <form method="POST" action="{% url 'eliminar_cuenta' %}">
+            {% csrf_token %}
+
+            <div class="checkbox-group">
+                <input type="checkbox" name="borrar_historial" id="confirmar-historial">
+                <label for="confirmar-historial">
+                    Tambien deseo eliminar mi historial de crisis
+                </label>
+            </div>
+
+            <div class="modal-buttons">
+                <button type="button" id="btn-cancelar-eliminar" class="btn-cancelar-modal">
+                    Cancelar
+                </button>
+
+                <button type="submit" class="btn-eliminar-modal">
+                    Eliminar cuenta
+                </button>
+            </div>
+        </form>
+
+    </div>
+</div>
+
 <script src="{% static 'js/configuracion.js' %}"></script>
 <script src="{% static 'js/home.js' %}"></script>
 </body>

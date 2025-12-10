@@ -63,12 +63,17 @@
 
 
 <main class="main-content container">
+{% if not request.session.usuario_id %}
+    <h1>Bienvenido/a a Hikari</h1>
+    <h4>Deberias iniciar sesión para poder empezar a usar Hikari</h4>
+        {% endif %}
 
+    {% if usuario_logeado %}
     <h1>Bienvenido/a a Hikari</h1>
 
     <h4>¿Cómo te sientes hoy?</h4>
     
-    {% if usuario_logeado %}
+
     <section class="crisis-content">
         <h5>Crisis inmediata</h5>
 
@@ -106,7 +111,7 @@
             <!-- IZQUIERDA -->
             <div class="footer-left">
                 <img src="{% static 'imagenes/logo-light-transparent.png' %}" 
-                     alt="Hikari" class="footer-logo">
+                    alt="Hikari" class="footer-logo">
             </div>
 
             <!-- CENTRO: Links -->

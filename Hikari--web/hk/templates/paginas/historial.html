@@ -1,0 +1,95 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block content %}
+
+<body class="fondo-configuracion">
+    <header class="header">
+    <div class="menu container">
+        <a href="{% url 'home' %}" class="logo"><img src="{% static 'imagenes/logo-alt-light-transparent.png' %}" class="logo"></a>
+
+        <input type="checkbox" id="menu">
+        <label for="menu">
+            <img src="{% static 'imagenes/menu.png' %}" class="menu-icono" alt="Menú">
+        </label>
+
+        <nav class="navbar">
+                <div class="nav-logo">
+                    <img src="{% static 'imagenes/logo-alt-dark-transparent.png' %}" alt="Hikari">
+                </div>
+            <ul>
+                {% if not request.session.usuario_id %}
+                <li><a href="{% url 'login' %}">Iniciar sesion</a></li>
+                <li><a href="{% url 'registro' %}">Registrarse</a></li>
+                {% endif %}
+                <li><a href="{% url 'crisis' %}">Crisis</a></li>
+                <li><a href="{% url 'home' %}">Habilidades</a></li>
+                <li><a href="{% url 'perfil' %}">Perfil</a></li>
+                {% if request.session.usuario_id %}
+                <li><a href="{% url 'logout' %}">Cerrar sesión</a></li>
+                {% endif %}
+            </ul>
+        </nav>
+        <div class="overlay" id="overlay"></div>
+    </div>
+</header>
+
+<main class="historial-container">
+
+    <div class="historial-card">
+
+        <h1 class="titulo-historial">Historial de Crisis</h1>
+
+        {% if historial %}
+            <ul class="lista-historial">
+                {% for item in historial %}
+                <li class="historial-item">
+
+                    <div class="historial-info">
+                        <p class="historial-fecha">
+                            📅 {{ item.fecha|date:"d M Y - H:i" }}
+                        </p>
+
+                        <p class="historial-nivel">
+                            <strong>Nivel inicial:</strong> {{ item.nivel }}
+                        </p>
+
+                        <p class="historial-habilidades">
+                            <strong>Habilidades usadas:</strong> {{ item.habilidades_usadas }}
+                        </p>
+                    </div>
+
+                    <form action="{% url 'eliminar_historial_item' item.id %}" method="POST">
+                        {% csrf_token %}
+                        <button class="btn-eliminar-item">🗑 Eliminar</button>
+                    </form>
+
+                </li>
+                {% endfor %}
+            </ul>
+
+            <form action="{% url 'eliminar_historial_todo' %}" method="POST">
+                {% csrf_token %}
+                <button class="btn-eliminar-todo">Eliminar todo el historial</button>
+            </form>
+
+        {% else %}
+            <p class="no-historial">No tienes registros todavía.</p>
+        {% endif %}
+
+        <div class="btn-volver-container">
+            <a href="{% url 'configuracion' %}" class="btn-volver">
+                ← Volver a configuración
+            </a>
+        </div>
+
+
+
+    </div>
+
+</main>
+<script src="{% static 'js/home.js' %}"></script>
+</body>
+
+{% endblock %}
+

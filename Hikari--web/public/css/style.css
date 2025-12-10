@@ -3,7 +3,7 @@
     margin: 0;
     padding: 0;
     font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
-    background-image: url('../img/monte-fuji.jpeg');
+    background-image: url('../img/fondo-home 2.jpg');
     background-size: cover;
     background-repeat: no-repeat;
     background-position: center;
@@ -315,6 +315,15 @@ button[type="submit"]:hover {
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
 }
 
+.header-ejercicio {
+    width: 100%;
+    background: #439778;
+    padding: 15px 0;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    margin-top: -40px;
+}
+
+
 .menu {
     max-width: 1100px;
     margin: 0 auto;
@@ -332,14 +341,17 @@ button[type="submit"]:hover {
 .navbar {
     position: fixed;
     top: 0;
-    right: -250px;
-    width: 250px;
+    right: -320px;  /* OCULTO 100% */
+    width: 320px;
     height: 100vh;
     background: #ffffff;
-    padding-top: 80px;
-    transition: right 0.3s ease-in-out;
-    box-shadow: -3px 0 10px rgba(0,0,0,0.2);
-    z-index: 1000;
+    box-shadow: -3px 0 10px rgba(0,0,0,0.15);
+    transition: right 0.4s ease;
+    padding-top: 30px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    z-index: 2000;
 }
 
 .navbar ul {
@@ -1170,21 +1182,7 @@ button[type="submit"]:hover {
     padding: 40px;
 }
 
-.navbar {
-    position: fixed;
-    top: 0;
-    right: -250px;
-    width: 300px;
-    height: 100vh;
-    background: #ffffff;
-    padding-top: 30px; /* espacio elegante */
-    display: flex;
-    flex-direction: column;
-    align-items: center; /* CENTRA TODO */
-    transition: right .3s ease-in-out;
-    box-shadow: -3px 0 10px rgba(0,0,0,.2);
-    z-index: 2000;
-}
+
 
 /* Contenedor del logo dentro del menú */
 .nav-logo {
@@ -1515,6 +1513,20 @@ button[type="submit"]:hover {
     font-family: 'Poppins', sans-serif;
     font-weight: 600;
     font-size: 30px;
+}
+
+.texto-centrado-crisis {
+    text-align: center;
+    font-family: 'Poppins', sans-serif;
+    font-weight: 600;
+    font-size: 18px;
+}
+
+.texto-centrado-ejercicio {
+    text-align: center;
+    font-family: 'Poppins', sans-serif;
+    font-weight: 600;
+    font-size: 25px;
 }
 
 .forgot-password {
@@ -1880,4 +1892,223 @@ input::after {
 .alert-error {
     background-color: #ffd6d6;
     color: #a60000;
+}
+
+.contactos-container {
+    max-width: 500px;
+    margin: 40px auto;
+    padding: 25px;
+    background: #ffffffd9;
+    border-radius: 16px;
+    box-shadow: 0 4px 14px rgba(0,0,0,0.1);
+    text-align: center;
+}
+
+.contactos-container h2 {
+    margin-bottom: 10px;
+    color: #355f52;
+    font-size: 26px;
+}
+
+.texto-ayuda {
+    color: #6a8c82;
+    margin-bottom: 25px;
+    font-size: 15px;
+}
+
+.contacto-card {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: #eef7f2;
+    padding: 15px;
+    border-radius: 14px;
+    margin-bottom: 18px;
+    border-left: 6px solid #439778;
+    transition: .3s ease;
+}
+
+.contacto-card:hover {
+    background: #e3f4ee;
+    transform: scale(1.02);
+}
+
+.contacto-card h3 {
+    margin: 0;
+    font-size: 18px;
+    color: #355f52;
+}
+
+.numero {
+    color: #566;
+    font-size: 16px;
+    margin: 5px 0 0 0;
+}
+
+.btn-llamar {
+    background: #439778;
+    color: white;
+    padding: 10px 15px;
+    border-radius: 12px;
+    text-decoration: none;
+    font-size: 15px;
+    transition: .2s;
+}
+
+.btn-llamar:hover {
+    background: #2e6e54;
+}
+
+.btn-volver {
+    width: 100%;
+    margin-top: 25px;
+    padding: 12px;
+    font-size: 16px;
+    background: #355f52;
+    color: #fff;
+    border: none;
+    border-radius: 12px;
+    cursor: pointer;
+    transition: .3s;
+}
+
+.btn-volver:hover {
+    background: #2b4a40;
+}
+
+.fijo {
+    border-left-color: #c0392b !important;
+}
+
+/* CONTENEDOR PRINCIPAL */
+.historial-container {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    margin-top: 80px;
+}
+
+/* TARJETA */
+.historial-card {
+    width: 85%;
+    max-width: 850px;
+    background: white;
+    padding: 40px;
+    border-radius: 18px;
+    box-shadow: 0 8px 20px rgba(0,0,0,0.15);
+    animation: fadeIn 0.5s ease;
+}
+
+/* TITULO */
+.titulo-historial {
+    text-align: center;
+    font-size: 32px;
+    font-weight: 800;
+    margin-bottom: 25px;
+    color: #1d3b32;
+}
+
+/* LISTA */
+.lista-historial {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+/* ITEM */
+.historial-item {
+    background: #f7faf9;
+    padding: 20px;
+    border-left: 6px solid #4CAF50;
+    margin-bottom: 18px;
+    border-radius: 12px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+/* INFO */
+.historial-info p {
+    margin: 4px 0;
+}
+
+/* FECHA */
+.historial-fecha {
+    font-size: 14px;
+    color: #4b4b4b;
+}
+
+/* BOTÓN ELIMINAR ITEM */
+.btn-eliminar-item {
+    background: #ff6b6b;
+    border: none;
+    padding: 10px 14px;
+    border-radius: 8px;
+    color: white;
+    cursor: pointer;
+    font-weight: bold;
+}
+
+.btn-eliminar-item:hover {
+    background: #ff4c4c;
+}
+
+/* BOTÓN ELIMINAR TODO */
+.btn-eliminar-todo {
+    background: #b30000;
+    border: none;
+    padding: 12px 20px;
+    border-radius: 10px;
+    color: white;
+    cursor: pointer;
+    width: 100%;
+    margin-top: 25px;
+    font-size: 16px;
+}
+
+.btn-eliminar-todo:hover {
+    background: #8c0000;
+}
+
+/* BOTÓN VOLVER */
+/* Contenedor que centra el botón */
+.btn-volver-container {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    margin-top: 20px;
+}
+
+/* Botón estilizado */
+.btn-volver {
+    display: inline-block;
+    padding: 12px 28px;
+    background: #2f6d52;
+    color: #fff;
+    font-size: 16px;
+    border-radius: 12px;
+    text-decoration: none;
+    transition: 0.2s ease;
+    text-align: center;
+}
+
+.btn-volver:hover {
+    background: #245540;
+    transform: translateY(-2px);
+}
+
+
+
+/* SI NO HAY HISTORIAL */
+.no-historial {
+    text-align: center;
+    font-size: 20px;
+    margin: 30px 0;
+    color: #333;
+}
+
+/* ANIMACIÓN */
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(15px); }
+    to { opacity: 1; transform: translateY(0); }
 }

@@ -1,0 +1,75 @@
+{% extends "base.html" %}
+{% load static %}
+{% block content %}
+
+<body class="fondo-ejercicio">
+
+<header class="header-ejercicio">
+    <div class="menu container">
+        <a href="{% url 'home' %}" class="logo">
+            <img src="{% static 'imagenes/logo-alt-light-transparent.png' %}" class="logo">
+        </a>
+
+        <input type="checkbox" id="menu">
+        <label for="menu">
+            <img src="{% static 'imagenes/menu.png' %}" class="menu-icono" alt="Menú">
+        </label>
+
+        <nav class="navbar">
+            <div class="nav-logo">
+                <img src="{% static 'imagenes/logo-alt-dark-transparent.png' %}" alt="Hikari">
+            </div>
+
+            <ul>
+                <li><a href="{% url 'crisis' %}">Crisis</a></li>
+                <li><a href="{% url 'home' %}">Habilidades</a></li>
+                <li><a href="{% url 'perfil' %}">Perfil</a></li>
+                <li><a href="{% url 'logout' %}">Cerrar sesión</a></li>
+            </ul>
+        </nav>
+
+        <div class="overlay" id="overlay"></div>
+    </div>
+</header>
+
+<main class="contactos-container">
+
+    <h2>Contactos de emergencia</h2>
+    <p class="texto-ayuda">Si necesitas ayuda urgente, comunícate con alguien de confianza.</p>
+
+    <!-- Contactos del usuario -->
+    {% for c in contactos %}
+    <div class="contacto-card">
+        <div>
+            <h3>{{ c.nombre }}</h3>
+            <p class="numero">{{ c.numero }}</p>
+        </div>
+
+        <a href="tel:{{ c.numero }}" class="btn-llamar">Llamar</a>
+    </div>
+
+        <!-- Contacto fijo -->
+    <div class="contacto-card fijo">
+        <div>
+            <h3>Emergencias</h3>
+            <p class="numero">123</p>
+        </div>
+        <a href="tel:123" class="btn-llamar">Llamar</a>
+    </div>
+
+    {% empty %}
+    <p class="no-contactos">
+        No has agregado contactos aún.
+        <br>
+        Puedes añadirlos en <strong>Datos personales</strong>.
+    </p>
+    {% endfor %}
+
+
+
+</main>
+
+<script src="{% static 'js/home.js' %}"></script>
+</body>
+
+{% endblock %}

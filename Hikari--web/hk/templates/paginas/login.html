@@ -3,18 +3,17 @@
 {% load static %}
 
 {% block content %}
-<body class="fondo-login">
+<body class="fondo-configuracion">
 
 <div class="formulario">
     <h1 class="texto-centrado-login">Inicio de sesión</h1>
 
-    {% if messages %}
-<div class="mensajes">
-    {% for message in messages %}
-        <p class="mensaje-error">{{ message }}</p>
-    {% endfor %}
+    {% if error %}
+<div class="alert-login error-alert">
+    {{ error }}
 </div>
 {% endif %}
+
 
 
     <form method="POST">

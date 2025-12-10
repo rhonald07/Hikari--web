@@ -1,16 +1,11 @@
-<!DOCTYPE html>
-<html lang="es">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Hikari - Ejercicio DBT</title>
-    
-    <!-- Ruta CSS -->
-    <link rel="stylesheet" href="../../../public/css/style.css">
-</head>
+{% extends "base.html" %}
+
+{% load static %}
+
+{% block content %}
 
 <body class="fondo-ejercicio">
-    <header class="header">
+    <header class="header-ejercicio">
     <div class="menu container">
         <a href="{% url 'home' %}" class="logo"><img src="{% static 'imagenes/logo-alt-light-transparent.png' %}" class="logo"></a>
 
@@ -40,31 +35,27 @@
     </div>
 </header>
 
-    <!-- Botones superiores -->
-    <div class="top-buttons">
-        <img src="../../../public/img/regreso.png" class="btn-back" alt="Regresar">
-        <img src="../../../public/img/home.png" class="btn-home" alt="Inicio">
-    </div>
-
     <main class="ejercicio-container">
 
-        <h2 id="titulo-habilidad"></h2>
+        <h2 id="titulo-habilidad" class="texto-centrado-ejercicio"></h2>
 
         <p id="descripcion-habilidad" class="descripcion"></p>
 
         <ul id="lista-pasos" class="lista-pasos"></ul>
 
-        <button id="btnSiguiente" disabled class="btn-ejercicio">
+        <button
+            id="btnSiguiente"
+            disabled
+            class="btn-ejercicio"
+            data-url-contactos="{% url 'contactos_emergencia' %}">
             Siguiente
         </button>
+
 
     </main>
 
     <!-- Script -->
-    <script src="../../../public/js/ejercicio.js"></script>
+    <script src="{% static 'js/ejercicio.js' %}"></script>
     <script src="{% static 'js/home.js' %}"></script>
 </body>
-</html>
-
-</body>
-</html>
+{% endblock %}

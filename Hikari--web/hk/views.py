@@ -7,7 +7,15 @@ import bcrypt
 from django.utils import timezone
 from .models import Usuario, ContactoEmergencia
 from django.shortcuts import render, redirect, get_object_or_404
+from .models import Usuario, RegistroCrisis
+from django.shortcuts import redirect
+from django.contrib.auth.hashers import check_password
+from django.http import JsonResponse
+import json
+from .models import HistorialCrisis, Usuario
+from django.views.decorators.csrf import csrf_exempt
 
+@csrf_exempt
 
 
 
@@ -317,8 +325,170 @@ def logout_view(request):
     request.session.flush()
     return redirect("home")
 
+# ----------------------------------------
+# errores
+# ----------------------------------------
+
 def error404_view(request):
     return render(request, "paginas/error404.html")
 
 def error500_view(request):
     return render(request, "paginas/error500.html")
+
+# ----------------------------------------
+# Cambiar contraseña
+# ----------------------------------------
+
+def cambiar_contraseña(request):
+    if "usuario_id" not in request.session:
+        return redirect("login")
+
+    if request.method == "POST":
+        usuario = Usuario.objects.get(id_usuario=request.session["usuario_id"])
+
+        pass_actual = request.POST.get("pass_actual")
+        pass_nueva = request.POST.get("pass_nueva")
+        pass_confirmar = request.POST.get("pass_confirmar")
+
+        # 1️ Verificar contraseña actual
+        if not check_password(pass_actual, usuario.password_usuario):
+            messages.error(request, "La contraseña actual no es correcta.")
+            return redirect("configuracion")
+
+        # 2️ Verificar que coincidan
+        if pass_nueva != pass_confirmar:
+            messages.error(request, "Las nuevas contraseñas no coinciden.")
+            return redirect("configuracion")
+
+        # 3️ Verificar mínimo 6 caracteres
+        if len(pass_nueva) < 6:
+            messages.error(request, "La nueva contraseña debe tener al menos 6 caracteres.")
+            return redirect("configuracion")
+
+        # 4️ Guardar nueva contraseña (encriptada)
+        usuario.password_usuario = make_password(pass_nueva)
+        usuario.save()
+
+        messages.success(request, "Tu contraseña ha sido cambiada exitosamente.")
+        return redirect("configuracion")
+
+    return redirect("configuracion")
+
+
+
+def eliminar_cuenta(request):
+    if "usuario_id" not in request.session:
+        return redirect("login")
+
+    if request.method == "POST":
+        usuario = Usuario.objects.get(id_usuario=request.session["usuario_id"])
+
+        borrar_historial = request.POST.get("borrar_historial")
+
+        # BORRAR HISTORIAL SI ESTÁ MARCADO
+        if borrar_historial == "on":
+            RegistroCrisis.objects.filter(id_usuario=usuario).delete()
+
+        # ELIMINAR USUARIO
+        usuario.delete()
+
+        # Cerrar sesión
+        request.session.flush()
+
+        messages.success(request, "Tu cuenta ha sido eliminada correctamente.")
+        return redirect("login")
+
+    return redirect("configuracion")
+
+def ejercicio_view(request):
+    # Si quieres validar que haya iniciado crisis:
+    nivel = request.session.get("nivel_malestar")
+
+    return render(request, "paginas/ejercicio.html", {
+        "nivel": nivel,   # por si luego quieres usarlo
+    })
+
+
+
+
+
+def guardar_nivel(request):
+    if request.method == "POST":
+
+        try:
+            data = json.loads(request.body.decode("utf-8"))
+        except:
+            return JsonResponse({"error": "JSON inválido"}, status=400)
+
+        nivel = data.get("nivel")
+        habilidades = data.get("habilidades", [])
+
+        usuario_id = request.session.get("usuario_id")
+        if not usuario_id:
+            return JsonResponse({"error": "Usuario no autenticado"}, status=403)
+
+        try:
+            usuario = Usuario.objects.get(id_usuario=usuario_id)
+        except Usuario.DoesNotExist:
+            return JsonResponse({"error": "Usuario no existe"}, status=404)
+
+        HistorialCrisis.objects.create(
+            usuario=usuario,
+            nivel=nivel,
+            habilidades_usadas=json.dumps(habilidades)
+        )
+
+        return JsonResponse({"ok": True})
+
+    return JsonResponse({"error": "Método no permitido"}, status=405)
+
+
+
+def contactos_emergencia(request):
+    if "usuario_id" not in request.session:
+        return redirect("login")
+
+    usuario = Usuario.objects.get(id_usuario=request.session["usuario_id"])
+    contactos = ContactoEmergencia.objects.filter(usuario=usuario)
+
+    return render(request, "paginas/contactos_emergencia.html", {
+        "contactos": contactos
+    })
+
+
+
+def historial_crisis_view(request):
+    usuario_id = request.session.get("usuario_id")
+    usuario = Usuario.objects.get(id_usuario=usuario_id)
+
+    historial = HistorialCrisis.objects.filter(usuario=usuario).order_by("-fecha")
+
+    # Convertir habilidades_usadas de JSON → lista
+    for h in historial:
+        if h.habilidades_usadas:  # si no está vacío
+            try:
+                h.habilidades_usadas = json.loads(h.habilidades_usadas)
+            except:
+                h.habilidades_usadas = []
+        else:
+            h.habilidades_usadas = []
+
+    return render(request, "paginas/historial.html", {"historial": historial})
+
+
+
+def eliminar_historial_item(request, id):
+    usuario_id = request.session.get("usuario_id")
+
+    item = HistorialCrisis.objects.filter(id=id, usuario_id=usuario_id).first()
+    if item:
+        item.delete()
+
+    return redirect("historial")
+
+
+def eliminar_historial_todo(request):
+    usuario_id = request.session.get("usuario_id")
+
+    HistorialCrisis.objects.filter(usuario_id=usuario_id).delete()
+    return redirect("historial")
