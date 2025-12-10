@@ -1,19 +1,41 @@
-<<<<<<< HEAD
-<!DOCTYPE html>
-<html lang="es">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="../../../public/css/style.css">
-    <title>Hikari - Crisis</title>
-</head>
+{% extends "base.html" %}
+
+{% load static %}
+
+{% block content %}
 
 <body class="fondo-crisis">
+    <header class="header">
+    <div class="menu container">
+        <a href="{% url 'home' %}" class="logo"><img src="{% static 'imagenes/logo-alt-light-transparent.png' %}" class="logo"></a>
+
+        <input type="checkbox" id="menu">
+        <label for="menu">
+            <img src="{% static 'imagenes/menu.png' %}" class="menu-icono" alt="Menú">
+        </label>
+
+        <nav class="navbar">
+                <div class="nav-logo">
+                    <img src="{% static 'imagenes/logo-alt-dark-transparent.png' %}" alt="Hikari">
+                </div>
+            <ul>
+                {% if not request.session.usuario_id %}
+                <li><a href="{% url 'login' %}">Iniciar sesion</a></li>
+                <li><a href="{% url 'registro' %}">Registrarse</a></li>
+                {% endif %}
+                <li><a href="{% url 'crisis' %}">Crisis</a></li>
+                <li><a href="{% url 'home' %}">Habilidades</a></li>
+                <li><a href="{% url 'perfil' %}">Perfil</a></li>
+                {% if request.session.usuario_id %}
+                <li><a href="{% url 'logout' %}">Cerrar sesión</a></li>
+                {% endif %}
+            </ul>
+        </nav>
+        <div class="overlay" id="overlay"></div>
+    </div>
+</header>
 
     <main class="nivel_malestar">
-
-        <!-- BOTÓN CASITA -->
-        <button class="btn-home" id="btnHome">🏠</button>
 
         <h1>Registrar nivel de malestar</h1>
         <h4>¿En qué nivel de malestar te encuentras?</h4>
@@ -43,6 +65,7 @@
             min="1"
             max="10"
             value="1"
+            step="0.1"
             class="slider"
             id="sliderMalestar"
         >
@@ -52,41 +75,10 @@
 
     </main>
 
-    <script src="../../../public/js/crisis.js"></script>
+    <!-- JS -->
+    <script src="{% static 'js/crisis.js' %}"></script>
+    <script src="{% static 'js/home.js' %}"></script>
+
 </body>
-</html>
-=======
-{% extends "base.html" %}
-
-
-{% block content %}
-
-<main class="nivel_malestar">
-    <h1>Registrar nivel de malestar</h1>
-    <h4>¿En qué nivel de malestar te encuentras?</h4>
-
-    <div class="nivel-box">
-        <span id="nivel-text">NIVEL 1</span>
-    </div>
-
-    <input type="range" min="1" max="10" value="1"
-           class="slider" id="slider-malestar">
-
-    <script>
-        const slider = document.getElementById("slider-malestar");
-        const texto = document.getElementById("nivel-text");
-
-        slider.oninput = function() {
-            texto.textContent = "NIVEL " + this.value;
-        }
-    </script>
-
-    <div class="botones-navegacion">
-        <a href="{% url 'home' %}" class="btn-regresar">Regresar</a>
-        <button class="btn-continuar">Continuar</button>
-    </div>
-
-</main>
 
 {% endblock %}
->>>>>>> 375b8fa53aeb9928b76fd0adc96a6a06ef310970

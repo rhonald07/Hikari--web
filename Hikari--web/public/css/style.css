@@ -232,6 +232,8 @@ button[type="submit"]:hover {
     padding: 20px 40px;
     border-radius: 12px;
     box-sizing: border-box;
+    margin-top: 30px;
+    margin-bottom: 30px;
 }
 
 .registro h1 {
@@ -1447,3 +1449,352 @@ button[type="submit"]:hover {
     text-decoration: underline;
 }
 
+.datos-container {
+    background: white;
+    padding: 30px;
+    border-radius: 18px;
+    width: 70%;
+    margin: 40px auto;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+}
+
+.datos-container h1 {
+    text-align: center;
+    font-size: 32px;
+    margin-bottom: 25px;
+    color: #333;
+}
+
+.form-group {
+    margin-bottom: 18px;
+}
+
+.form-group label {
+    font-weight: 600;
+    color: #355f52;
+}
+
+.form-group input {
+    width: 100%;
+    padding: 10px;
+    border-radius: 10px;
+    border: 1px solid #cfe3db;
+    background: #eef7f2;
+}
+
+.form-info p {
+    margin: 5px 0;
+    color: #444;
+}
+
+.btns-datos {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 30px;
+}
+
+.btn-cancelar {
+    border: 2px solid #2e6e54;
+    padding: 12px 22px;
+    border-radius: 12px;
+    color: #2e6e54;
+    text-decoration: none;
+    font-weight: 600;
+}
+
+.btn-guardar {
+    padding: 12px 22px;
+    background: #439778;
+    color: white;
+    border-radius: 12px;
+    border: none;
+    font-weight: 600;
+    flex-grow: 1;
+    margin-left: 20px;
+}
+
+/* Evitar contenido duplicado en inputs */
+input::before,
+input::after {
+    content: none !important;
+}
+
+/* Limpia posibles backgrounds o iconos que causan superposición */
+input {
+    background-image: none !important;
+    background-position: initial !important;
+    background-repeat: no-repeat !important;
+    padding-left: 15px !important;
+}
+
+.form-group input {
+    width: 100%;
+    padding: 12px 16px;
+    border-radius: 10px;
+    border: 1px solid #cfe3db;
+    background-color: #f4faf7 !important;
+    color: #222;
+    font-size: 16px;
+    line-height: normal;
+    display: block;
+    box-sizing: border-box;
+}
+
+input:-webkit-autofill,
+input:-webkit-autofill:hover,
+input:-webkit-autofill:focus {
+    -webkit-text-fill-color: #222 !important;
+    -webkit-box-shadow: 0 0 0px 1000px #f4faf7 inset !important;
+    box-shadow: 0 0 0px 1000px #f4faf7 inset !important;
+}
+
+input::before,
+input::after {
+    display: none !important;
+    content: "" !important;
+}
+
+.select-documento {
+    width: 100%;
+    padding: 14px;
+    border: 1px solid #cfe3db;
+    border-radius: 12px;
+    background: #eef7f2;
+    font-size: 16px;
+    color: #355f52;
+    appearance: none; /* quita el estilo feo del sistema */
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    cursor: pointer;
+}
+
+/* Ícono lindo para la flecha */
+.select-documento {
+    background-image: url("data:image/svg+xml;utf8,<svg fill='%23355f52' height='24' viewBox='0 0 24 24' width='24' xmlns='http://www.w3.org/2000/svg'><path d='M7 10l5 5 5-5z'/></svg>");
+    background-repeat: no-repeat;
+    background-position: right 16px center;
+    background-size: 18px;
+}
+
+/* Centrar la perilla EXACTAMENTE bajo cada emoji */
+.slider {
+    width: 90%;
+    margin: 0 auto;
+    display: block;
+    height: 8px;
+    background: #dcdcdc;
+    border-radius: 5px;
+}
+
+/* Quitar estilos por defecto */
+.slider::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 26px;  
+    height: 26px;
+    background: #2e8b57;
+    border-radius: 50%;
+    cursor: pointer;
+    margin-top: -10px; /* Centra verticalmente */
+    transition: 0.2s;
+}
+
+/* Firefox */
+.slider::-moz-range-thumb {
+    width: 26px;
+    height: 26px;
+    background: #2e8b57;
+    border-radius: 50%;
+    cursor: pointer;
+    transition: 0.2s;
+}
+
+/* Alinear emojis y slider */
+.emoji-line {
+    display: flex;
+    justify-content: space-between;
+    width: 90%;
+    margin: 20px auto 10px auto;
+}
+
+.emoji {
+    font-size: 30px;
+}
+
+.nivel-box {
+    width: 80%;
+    margin: 0 auto;
+    padding: 20px;
+    border-radius: 15px;
+    text-align: center;
+    color: white;
+    font-size: 28px;
+    font-weight: bold;
+    box-sizing: border-box; /* evita desbordes */
+}
+
+/* Espacio entre emojis y slider */
+.emoji-line {
+    display: flex;
+    justify-content: space-between;
+    width: 80%;
+    margin: 25px auto 25px auto;
+}
+
+.slider {
+    width: 80%;
+    margin: 0 auto 25px auto; /* SEPARA EL SLIDER DE EMOJIS */
+    display: block;
+}
+
+/* Ajuste fino para centrar el thumb */
+.slider::-webkit-slider-thumb {
+    margin-left: -13px; /* Ajuste preciso */
+}
+
+.slider::-moz-range-thumb {
+    transform: translateX(-13px);
+}
+
+/* Fila para poner inputs lado a lado */
+.form-row {
+    display: flex;
+    gap: 15px;
+}
+
+.form-row .mitad {
+    width: 50%;
+}
+
+/* Contactos de emergencia */
+.titulo-emergencia {
+    margin-top: 25px;
+    font-size: 18px;
+    color: #355f52;
+}
+
+.contacto-item {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 12px;
+}
+
+.contacto-item input,
+.contacto-item select {
+    flex: 1;
+}
+
+/* Botón agregar contacto */
+.btn-agregar {
+    background: #d5eee2;
+    color: #2e6e54;
+    border: 2px solid #2e6e54;
+    padding: 10px 15px;
+    border-radius: 10px;
+    cursor: pointer;
+    margin-bottom: 20px;
+}
+
+/* Botón eliminar contacto */
+.btn-eliminar {
+    background: #ffcccc;
+    border: none;
+    padding: 5px 10px;
+    border-radius: 6px;
+    cursor: pointer;
+    color: #a00000;
+}
+
+.fondo-registro {
+    min-height: 100vh;   
+    height: auto !important;
+    overflow-x: hidden;
+}
+
+.fondo-registro {
+    background-size: cover;   /* siempre cubre la pantalla completa */
+    background-repeat: no-repeat;
+    background-attachment: fixed; 
+    background-position: center;
+
+    min-height: 100vh;   /* asegura que nunca se corte */
+}
+
+.registro {
+    min-height: 100vh;
+    height: auto;
+}
+
+.fondo-registro {
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+    background-attachment: fixed;
+
+    min-height: 100vh;
+    height: auto;
+}
+
+.fondo-registro {
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+    background-attachment: fixed;
+
+    min-height: 100vh;   /* altura mínima de la pantalla */
+    padding-top: 80px;   /* SEPARA el formulario del borde superior */
+    padding-bottom: 80px; /* evita que el final se corte */
+}
+
+.registro {
+    width: 70%;
+    max-width: 600px;
+    margin: 0 auto;
+
+    padding-bottom: 50px;  /* IMPORTANTE */
+    padding-top: 30px;     /* IMPORTANTE */
+
+    height: auto !important;
+
+    overflow: visible !important;
+}
+
+.registro {
+    margin-top: 350px !important;   /* asegúrate que el formulario baje */
+    padding-top: 30px;
+}
+
+.registro-wrapper {
+    display: flex;
+    justify-content: center;
+    padding-top: 800px; /* espacio extra para scroll */
+    padding-bottom: 500px;
+    width: 100%;
+}
+
+.alert-container {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    margin-bottom: 20px;
+}
+
+.alert {
+    padding: 12px 20px;
+    border-radius: 10px;
+    font-size: 16px;
+    font-weight: 500;
+    width: 60%;
+    text-align: center;
+}
+
+/* Colores según tipo */
+.alert-success {
+    background-color: #c9f7c9;
+    color: #1a7f1a;
+}
+
+.alert-error {
+    background-color: #ffd6d6;
+    color: #a60000;
+}

@@ -5,6 +5,35 @@
 {% block content %}
 
 <body class="fondo-configuracion">
+    <header class="header">
+    <div class="menu container">
+        <a href="{% url 'home' %}" class="logo"><img src="{% static 'imagenes/logo-alt-light-transparent.png' %}" class="logo"></a>
+
+        <input type="checkbox" id="menu">
+        <label for="menu">
+            <img src="{% static 'imagenes/menu.png' %}" class="menu-icono" alt="Menú">
+        </label>
+
+        <nav class="navbar">
+                <div class="nav-logo">
+                    <img src="{% static 'imagenes/logo-alt-dark-transparent.png' %}" alt="Hikari">
+                </div>
+            <ul>
+                {% if not request.session.usuario_id %}
+                <li><a href="{% url 'login' %}">Iniciar sesion</a></li>
+                <li><a href="{% url 'registro' %}">Registrarse</a></li>
+                {% endif %}
+                <li><a href="{% url 'crisis' %}">Crisis</a></li>
+                <li><a href="{% url 'home' %}">Habilidades</a></li>
+                <li><a href="{% url 'perfil' %}">Perfil</a></li>
+                {% if request.session.usuario_id %}
+                <li><a href="{% url 'logout' %}">Cerrar sesión</a></li>
+                {% endif %}
+            </ul>
+        </nav>
+        <div class="overlay" id="overlay"></div>
+    </div>
+</header>
 
 <main class="configuracion">
 
@@ -55,5 +84,6 @@
             </div>
 </div>
 <script src="{% static 'js/configuracion.js' %}"></script>
+<script src="{% static 'js/home.js' %}"></script>
 </body>
 {% endblock %}

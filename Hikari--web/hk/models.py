@@ -40,16 +40,40 @@ class Usuario(models.Model):
 # 2. CONTACTO EMERGENCIA
 # ==========================================================
 class ContactoEmergencia(models.Model):
-    id_usuario = models.ForeignKey(Usuario, on_delete=models.CASCADE)
-    nombre_contacto = models.CharField(max_length=150)
-    relacion = models.CharField(max_length=100, null=True, blank=True)
-    telefono_contacto = models.CharField(max_length=30)
-    email_contacto = models.CharField(max_length=255, null=True, blank=True)
-    orden = models.IntegerField(default=1)
-    contacto_activo = models.BooleanField(default=True)
+    PRIORIDADES = [
+        ('alta', 'Alta'),
+        ('media', 'Media'),
+        ('baja', 'Baja'),
+    ]
 
-    class Meta:
-        db_table = "ContactoEmergencia"
+    usuario = models.ForeignKey(
+        Usuario,
+        on_delete=models.CASCADE,
+        related_name="contactos_emergencia",
+        null=True,
+        blank=True
+    )
+
+    nombre = models.CharField(
+        max_length=255,
+        null=True,
+        blank=True
+    )
+
+    numero = models.CharField(
+        max_length=30,
+        null=True,
+        blank=True
+    )
+
+    prioridad = models.CharField(
+        max_length=10,
+        choices=PRIORIDADES,
+        default='media'
+    )
+
+    def __str__(self):
+        return f"{self.nombre} ({self.numero}) - {self.prioridad}"
 
 
 # ==========================================================
@@ -202,3 +226,36 @@ class PracticaHabilidad(models.Model):
 
     class Meta:
         db_table = "PracticaHabilidad"
+
+class ContactoEmergencia(models.Model):
+    usuario = models.ForeignKey(
+        Usuario,
+        on_delete=models.CASCADE,
+        related_name="contactos"
+    )
+
+    nombre = models.CharField(
+        max_length=100,
+        null=True,
+        blank=True
+    )
+
+    numero = models.CharField(
+        max_length=50,
+        null=True,
+        blank=True
+    )
+
+    prioridad = models.CharField(
+        max_length=20,
+        null=True,
+        blank=True,
+        choices=[
+            ("alta", "Alta"),
+            ("media", "Media"),
+            ("baja", "Baja"),
+        ]
+    )
+
+    def __str__(self):
+        return f"{self.nombre} - {self.numero} ({self.prioridad})"
